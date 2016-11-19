@@ -1,48 +1,22 @@
 <?
-require_once ('codebird.php');
-\Codebird\Codebird::setConsumerKey('XXXX', 'YYY'); // static, see README
+require "../vendor/autoload.php";
 
-$cb = \Codebird\Codebird::getInstance();
+use Abraham\TwitterOAuth\TwitterOAuth;
 
+$dotenv = new Dotenv\Dotenv("../");
+$dotenv->load();
 
-session_start();
+define('CONSUMER_KEY', getenv('CONSUMER_KEY'));
+define('CONSUMER_SECRET', getenv('CONSUMER_SECRET'));
+define('OAUTH_CALLBACK', getenv('OAUTH_CALLBACK'));
 
-if (! isset($_SESSION['oauth_token'])) {
-  // get the request token
-  $reply = $cb->oauth_requestToken([
-    'oauth_callback' => 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']
-  ]);
+$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+$request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => OAUTH_CALLBACK));
 
-  // store the token
-  $cb->setToken($reply->oauth_token, $reply->oauth_token_secret);
-  $_SESSION['oauth_token'] = $reply->oauth_token;
-  $_SESSION['oauth_token_secret'] = $reply->oauth_token_secret;
-  $_SESSION['oauth_verify'] = true;
+//echo($request_token);
 
-  // redirect to auth website
-  $auth_url = $cb->oauth_authorize();
-  header('Location: ' . $auth_url);
-  die();
+$url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
 
-} elseif (isset($_GET['oauth_verifier']) && isset($_SESSION['oauth_verify'])) {
-  // verify the token
-  $cb->setToken($_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-  unset($_SESSION['oauth_verify']);
+echo "<a href=\"" . $url . "\">authorize gallical.lol</a>";
 
-  // get the access token
-  $reply = $cb->oauth_accessToken([
-    'oauth_verifier' => $_GET['oauth_verifier']
-  ]);
-
-  // store the token (which is different from the request token!)
-  $_SESSION['oauth_token'] = $reply->oauth_token;
-  $_SESSION['oauth_token_secret'] = $reply->oauth_token_secret;
-
-  // send to same URL, without oauth GET parameters
-  header('Location: ' . basename(__FILE__));
-  die();
-}
-
-// assign access token on each page load
-$cb->setToken($_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 ?>
