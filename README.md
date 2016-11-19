@@ -1,6 +1,16 @@
 # gallicalol
 
-Run local server using PHP
+## Installation
+
+
+### Install dependencies
+
+```
+composer install
+```
+
+
+### Run local server using PHP
 
 ```
 php -S localhost:8000
