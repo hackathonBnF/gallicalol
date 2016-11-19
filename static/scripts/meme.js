@@ -100,3 +100,4 @@ $scale.on('change', function(e) {
 
 $textOne.on('keyup', renderMeme);
 $textTwo.on('keyup', renderMeme);
+

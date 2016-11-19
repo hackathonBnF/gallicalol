@@ -1,43 +1,37 @@
 $(document).ready(function(){
 
-var cb = new Codebird;
-cb.setConsumerKey("tDBS0qgbxYPWBiSSKJNHV8rkY", "kCMBpJNEMWAm8ndOZ0hBHnnGKBz1rRuQ0AS6OcAQlu6Z6cHVgR");
+$("#search").submit(function(e){
+	$("#results").empty();
 
-$("#twitter-login").click(function(e){
-	//var cb          = new Codebird;
-	var current_url = document.URL;
-	var query       = current_url.match(/\?(.+)$/).split("&amp;");
-	var parameters  = {};
-	var parameter;
+	// $grid.imagesLoaded().progress( function() {
+	// 	$grid.masonry('layout');
+	// });
 
-	//cb.setConsumerKey("STUFF", "HERE");
 
-	for (var i = 0; i < query.length; i++) {
-	    parameter = query[i].split("=");
-	    if (parameter.length === 1) {
-	        parameter[1] = "";
-	    }
-	    parameters[decodeURIComponent(parameter[0])] = decodeURIComponent(parameter[1]);
-	}
+	$.get("/api/fetch.php", { "query" : $("#query").val() },function(data){
+		//console.log(data);
+		console.log(data[0]["img"]);
 
-	// check if oauth_verifier is set
-	if (typeof parameters.oauth_verifier !== "undefined") {
-	    // assign stored request token parameters to codebird here
-	    // ...
-	    cb.setToken(stored_somewhere.oauth_token, stored_somewhere.oauth_token_secret);
+		$.each(data, function(idx){
+			result = data[idx];
+			console.log(result["img"]);
+			$("#results").append($("<div class=\"grid-item\"><img src=\""+result["thumb"]+"\" /></div>"));
+		});
 
-	    cb.__call(
-	        "oauth_accessToken",
-	        {
-	            oauth_verifier: parameters.oauth_verifier
-	        },
-	        function (reply) {
-	            cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+		$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 220 });
+		
+		$("#results").imagesLoaded().progress(function(){
+			$("#results").masonry('layout');
+		});
+	});
 
-	            // if you need to persist the login after page reload,
-	            // consider storing the token in a cookie or HTML5 local storage
-	        }
-	    );
-	}
+	event.preventDefault();
 });
+
+
+
+
+
+$("#search").submit();
+
 });

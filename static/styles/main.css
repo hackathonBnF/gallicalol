@@ -27,7 +27,8 @@ div.nav {
 	height: 200px;
 	font-size: 24px;
 }
-
+.grid-item { margin : 10px; }
+.grid-item img { width: 200px; }
 .actions { margin-top: 20px; }
 .actions button { width : 100%; margin-bottom : 10px;}
 

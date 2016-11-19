@@ -10,8 +10,6 @@
 
   <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
 
-
-
 </head>
 <body>
 
@@ -31,12 +29,14 @@
 
 <div class="row">
 <div>
-<form id="search" action="/search.php" method="post" class="form-inline">
+<form id="search" class="form-inline">
   <div class="row">
-	<div class="col-xs-10"><input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" /></div>
+	<div class="col-xs-10"><input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" value="cheval" /></div>
 	<div class="col-xs-2"><button type="submit" class="btn btn-primary">chercher</button></div>
   </div>
 </form>
+
+<div id="results" class="grid"></div>
 
 </div>
 
@@ -47,7 +47,11 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="
   sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
 <script src="/static/scripts/meme.js"></script>
+<script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script src="/static/js/main.js"></script>
 
 </body>
 </html>
