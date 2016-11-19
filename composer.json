@@ -1,0 +1,12 @@
+{
+    "name": "alex/gallicalol",
+    "authors": [
+        {
+            "name": "Alexandre Segura",
+            "email": "mex.zktk@gmail.com"
+        }
+    ],
+    "require": {
+        "abraham/twitteroauth": "^0.7.1"
+    }
+}
