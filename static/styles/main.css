@@ -34,3 +34,22 @@ div.nav {
 #canvas {
 	border: 1px dashed lightgrey;
 }
+
+#search input { width: 100%; }
+#search button { width: 100%; }
+
+#footer {
+	margin-top: 50px;
+	margin-bottom: 20px;
+
+	text-align: center;
+	font-size: 12px;
+}
+
+#footer a {
+	color: #adadad;
+}
+
+#footer a:hover {
+	color: #474747;
+}

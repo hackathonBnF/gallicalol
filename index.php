@@ -31,14 +31,18 @@
 
 <div class="row">
 <div>
-<form action="/search.php" method="post">
-	<input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" />
-	<button type="submit" class="btn btn-primary btn-sm">Search</button>
+<form id="search" action="/search.php" method="post" class="form-inline">
+  <div class="row">
+	<div class="col-xs-10"><input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" /></div>
+	<div class="col-xs-2"><button type="submit" class="btn btn-primary">chercher</button></div>
+  </div>
 </form>
 
 </div>
 
 </div>
+
+<? include("includes/footer.php") ?>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="
