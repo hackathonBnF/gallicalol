@@ -17,6 +17,9 @@ $request_token = $connection->oauth('oauth/request_token', array('oauth_callback
 
 $url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
 
-echo "<a href=\"" . $url . "\">authorize gallical.lol</a>";
+# echo "<a href=\"" . $url . "\">authorize gallical.lol</a>";
 
+header('Location: '.$url);
+exit;
 ?>
+

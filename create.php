@@ -64,10 +64,10 @@
  Télécharger</a>
     <hr>
 
-    <button class="btn btn-info"><i class="fa fa-twitter" aria-hidden="true"></i>
+    <button class="btn btn-info" id="twitter-login"><i class="fa fa-twitter" aria-hidden="true"></i>
  Se connecter sur twitter</button>
 
-    <button class="btn btn-info"><i class="fa fa-twitter" aria-hidden="true"></i>
+    <button class="btn btn-info" id="twitter-post"><i class="fa fa-twitter" aria-hidden="true"></i>
  Partager sur twitter</button>
 
   </div>
