@@ -19,6 +19,7 @@ function loadImageIntoCanvas() {
     x = canvas.width / 2 - img.width / 2;
     y = canvas.height / 2 - img.height / 2;
     ctx.drawImage(img, x, y);
+    refreshDownloadLink();
   };
 
   img.src = imageURL;
@@ -48,7 +49,13 @@ function writeTexts() {
 }
 
 function renderMeme() {
+  ctx.save();
+
+  var val = $scale.val();
+  ctx.scale(val, val)
   ctx.drawImage(img, x, y);
+  ctx.restore();
+
   writeTexts();
   refreshDownloadLink();
 }
@@ -66,30 +73,7 @@ $downloadIntoCanvas.on('click', function(e) {
   loadImageIntoCanvas();
 });
 
-$scale.on('change', function(e) {
-
-  ctx.save();
-
-  // Clear canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Translate to center so transformations will apply around this point
-  ctx.translate(canvas.width / 2, canvas.height / 2);
-
-  // Perform scale
-  var val = $scale.val();
-  ctx.scale(val, val);
-
-  // Reverse the earlier translation
-  ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
-  // Finally, draw the image
-  ctx.drawImage(img, x, y);
-
-  ctx.restore();
-
-  writeTexts();
-});
+$scale.on('change', renderMeme);
 
 // $download.on('click', function(e) {
 //   e.preventDefault();
