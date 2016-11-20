@@ -56,7 +56,7 @@ if ( $result ) {
 </div>
 </div>
 
-<? include("includes/footer.php") ?>
+<?php include("includes/footer.php") ?>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="
