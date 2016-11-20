@@ -9,6 +9,8 @@ div.nav {
 	line-height: 48px;
 }
 
+.nav .create { margin-left: 15px; }
+
 
 .container {
 	margin-bottom: 50px;
