@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
+  <script src="https://use.fontawesome.com/354985ad2d.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
 
 </head>
@@ -24,8 +25,10 @@
 
 
   <div class="nav navbar-inline float-xs-right">
-    <a class="browse nav-link" href="#">chercher</a>
-    <a class="create nav-link" href="/create.php">créer</a>
+    <a class="browse nav-link nav-item" href="#"><i class="fa fa-search" aria-hidden="true"></i>
+ chercher</a>
+    <a class="create nav-link nav-item" href="/create.php"><i class="fa fa-plus-square" aria-hidden="true"></i>
+ créer</a>
   </div>
 </nav>
 
