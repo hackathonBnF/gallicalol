@@ -32,7 +32,7 @@
 <div>
 <form id="search" class="form-inline">
   <div class="row">
-	<div class="col-xs-10"><input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" value="<?php echo isset($_GET)?$_GET["query"]:"Trump"; ?>" /></div>
+	<div class="col-xs-10"><input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" value="<?php if ( !empty($_GET["query"])) { echo $_GET["query"]; } else { echo "Bibliothèque"; } ?>" /></div>
 	<div class="col-xs-2"><button type="submit" class="btn btn-primary">chercher</button></div>
   </div>
 </form>

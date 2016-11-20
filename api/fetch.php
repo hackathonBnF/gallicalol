@@ -1,8 +1,12 @@
 <?php
   header('Content-Type: application/json');
-
+if ( !empty($_GET['query']) ) {
+    $query = $_GET['query'];
+} else {
+    $query = "";
+}
   $context  = stream_context_create(array('http' => array('header' => 'Accept: application/xml')));
-$url_query = 'http://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&maximumRecords=50&query=dc.type%20any%20image%20and%20gallica%20any%20"' . urlencode(urldecode($_GET['query'])) . '"';
+$url_query = 'http://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&maximumRecords=50&query=dc.type%20any%20image%20and%20gallica%20any%20"' . urlencode(urldecode($query)) . '"';
 	$xml = file_get_contents( $url_query , false, $context);
   $xml = simplexml_load_string($xml);
 
