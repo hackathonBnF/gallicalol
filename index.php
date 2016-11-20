@@ -16,6 +16,7 @@
 
 <div class="container">
 
+<div class="row">
 
 <nav class="navbar navbar-light">
 
@@ -28,7 +29,6 @@
   </div>
 </nav>
 
-<div class="row">
 <div>
 <form id="search" class="form-inline">
   <div class="row">

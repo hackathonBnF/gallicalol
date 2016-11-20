@@ -56,7 +56,7 @@ if(params["query"] != "" && params["query"] != undefined){
 	$("#media").hide();
 }
 
-$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 220 });
+$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
 
 $("#search").submit(function(e){
 	$("#results").empty();
