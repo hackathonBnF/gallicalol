@@ -16,6 +16,14 @@ $("#twitter-login").click(function(e){
 	}
 });
 
+// Update image when modal is shown
+$('#twitter-modal').on('shown.bs.modal', function () {
+	$('#twitter-modal-img')
+		.hide()
+		.attr('src', document.getElementById('canvas').toDataURL('image/jpeg'))
+		.show();
+});
+
 $('#post-to-twitter').on('click', function(e) {
 	e.preventDefault();
 
