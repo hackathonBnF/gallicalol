@@ -14,10 +14,22 @@ var imageURL;
 
 var x, y;
 
+var drag = false;
+
+var prevX = 0;
+var prevY = 0;
+
+var moveXAmount = 0;
+var moveYAmount = 0;
+
 function loadImageIntoCanvas() {
   img.onload = function() {
     x = canvas.width / 2 - img.width / 2;
     y = canvas.height / 2 - img.height / 2;
+
+    imageWidth=img.width;
+    console.log(imageWidth);
+
     ctx.drawImage(img, x, y);
     refreshDownloadLink();
   };
@@ -55,7 +67,7 @@ function renderMeme() {
 
   var val = $scale.val();
   ctx.scale(val, val)
-  ctx.drawImage(img, x, y);
+  ctx.drawImage(img, x+moveXAmount, y+moveYAmount);
   ctx.restore();
 
   writeTexts();
@@ -87,3 +99,30 @@ $scale.on('change', renderMeme);
 $textOne.on('keyup', renderMeme);
 $textTwo.on('keyup', renderMeme);
 
+$(canvas).mousedown(function(){
+  drag = true;
+
+  prevX=0;
+  prevY=0;
+});
+
+$(canvas).mouseup(function(){
+  drag = false;
+
+  prevX=0;
+  prevY=0;
+});
+
+$(window).mousemove(function(event) {
+  if(drag){
+
+      if( prevX>0 || prevY>0){
+        moveXAmount += event.pageX - prevX;
+        moveYAmount += event.pageY - prevY;
+        renderMeme();
+      }
+
+      prevX = event.pageX;
+      prevY = event.pageY;
+  }
+});
