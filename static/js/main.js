@@ -56,10 +56,14 @@ if(params["query"] != "" && params["query"] != undefined){
 	$("#media").hide();
 }
 
-$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
+if ($('#results').length === 1) {
+	$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
+}
 
 $("#search").submit(function(e){
 	$("#results").empty();
+
+	e.preventDefault();
 
 	// $grid.imagesLoaded().progress( function() {
 	// 	$grid.masonry('layout');
@@ -86,8 +90,6 @@ $("#search").submit(function(e){
 			$("#results").masonry('layout');
 		});
 	});
-
-	event.preventDefault();
 });
 
 $("#search").submit();
