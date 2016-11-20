@@ -29,7 +29,7 @@ function loadImageIntoCanvas() {
     y = canvas.height / 2 - img.height / 2;
 
     imageWidth=img.width;
-    console.log(imageWidth);
+    //console.log(imageWidth);
 
     ctx.drawImage(img, x, y);
     refreshDownloadLink();
@@ -85,7 +85,7 @@ function refreshDownloadLink() {
 $downloadIntoCanvas.on('click', function(e) {
   e.preventDefault();
   imageURL = '/proxy.php?url=' + encodeURIComponent($imageURL.val());
-  console.log(imageURL);
+  //console.log(imageURL);
   loadImageIntoCanvas();
 });
 

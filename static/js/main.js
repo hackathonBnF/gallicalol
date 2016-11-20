@@ -47,7 +47,7 @@ window.location.search
   }
 );
 
-console.log("query", params["query"]);
+//console.log("query", params["query"]);
 
 if(params["query"] != "" && params["query"] != undefined){
 
@@ -68,11 +68,11 @@ $("#search").submit(function(e){
 
 	$.get("/api/fetch.php", { "query" : $("#query").val() },function(data){
 		//console.log(data);
-		console.log(data[0]["img"]);
+		//console.log(data[0]["img"]);
 
 		$.each(data, function(idx){
 			result = data[idx];
-			console.log(result["img"]);
+			//console.log(result["img"]);
 
 			$content = $("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
 
