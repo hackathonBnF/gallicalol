@@ -26,4 +26,4 @@ php -S localhost:8000
 - mex
 - vincent
 - tk @taniki
-- ???
+- clémence
