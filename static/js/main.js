@@ -1,5 +1,5 @@
 $("#twitter-login").click(function(e){
-	console.log("open");
+	e.preventDefault();
 	window.open("/twitter/login.php", "_temp",'resizable=yes,width=600,height=600');
 });
 
@@ -60,7 +60,7 @@ $("#search").submit(function(e){
 				.masonry( 'appended', $content );
 		});
 
-		
+
 		$("#results").imagesLoaded().progress(function(){
 			$("#results").masonry('layout');
 		});
