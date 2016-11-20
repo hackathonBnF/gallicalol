@@ -63,7 +63,7 @@
 
   <div class="actions">
 
-    <button type="submit" formmethod="post" formaction="./store.php" class="btn btn-block btn-success" id="save" ><i class="fa fa-save" aria-hidden="true"></i> Sauver</button>
+    <a class="btn btn-block btn-success" id="save" ><i class="fa fa-save" aria-hidden="true"></i> Sauver</a>
 
     <a class="btn btn-block btn-success" id="download" href="#" download="gallica.jpg"><i class="fa fa-download" aria-hidden="true"></i>
  Télécharger</a>
