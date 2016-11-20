@@ -46,20 +46,48 @@ $("#search").submit(function(e){
 
 
 	$.get("/api/fetch.php", { "query" : $("#query").val() },function(data){
-		//console.log(data);
-		console.log(data[0]["img"]);
+		console.log(data);
+		var size = Object.keys(data).length;
+		console.log(" Nombre de résultats:  "+size);
+		if (size > 0)
+		{
+			console.log("Rien trouvé... :/ ");
+			$.each(data, function(idx){
+				result = data[idx];
+				console.log("Trouvé : "+result["img"]);
+				$content = $("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
+				$("#results")
+					.append($content)
+					.masonry( 'appended', $content );
+			});
+		}
 
-		$.each(data, function(idx){
-			result = data[idx];
-			console.log(result["img"]);
+		else
+				{
+					
 
-			$content = $("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
+					/*$content = $("<div class=\"grid-item\" ><img style =\"width: 520px\" src=\"static/images/pageVide.gif\" /></div>");
+					//console.log("Je crée : "+$content);
+					$("#results")
+						.append($content)
+						.masonry( 'appended', $content );*/
 
-			$("#results")
-				.append($content)
-				.masonry( 'appended', $content );
-		});
+					$content = $("<div class=\"grid-item\" style=\"text-align:center;font-size:28px;\"> Pas de résultat à votre recherche... </div>");
+					$("#results")
+						.append($content)
+						.masonry( 'appended', $content );
 
+					$.get("/api/fetch.php", { "query" : "vide" },function(data){
+						$.each(data, function(idx){
+							result = data[idx];
+							//console.log("Trouvé : "+result["img"]);
+							$content = $("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
+							$("#results")
+						.append($content)
+						.masonry( 'appended', $content );
+					});
+				});
+			}
 
 		$("#results").imagesLoaded().progress(function(){
 			$("#results").masonry('layout');

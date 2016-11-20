@@ -36,8 +36,8 @@
 	<div class="col-xs-2"><button type="submit" class="btn btn-primary">chercher</button></div>
   </div>
 </form>
-
-<div id="results" class="grid"></div>
+<!-- class="grid" -->
+<div id="results" ></div>
 
 </div>
 
