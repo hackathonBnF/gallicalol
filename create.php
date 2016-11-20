@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -68,11 +69,9 @@
  Télécharger</a>
     <hr>
 
-    <button class="btn btn-info" id="twitter-login"><i class="fa fa-twitter" aria-hidden="true"></i>
- Se connecter sur twitter</button>
-
-    <button class="btn btn-info" id="twitter-post"><i class="fa fa-twitter" aria-hidden="true"></i>
- Partager sur twitter</button>
+    <button class="btn btn-info" id="twitter-login" data-is-authenticated="<?php echo isset($_SESSION['access_token'], $_SESSION['access_token_secret']) ? 'true' : 'false' ?>">
+      <i class="fa fa-twitter" aria-hidden="true"></i> Partager sur twitter
+    </button>
 
   </div>
 
@@ -82,9 +81,33 @@
 </form>
 </div>
 
+<div id="twitter-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Texte du tweet :</label>
+            <textarea class="form-control" id="tweet-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="post-to-twitter">Tweeter</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="
   sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+<script src="/static/js/jquery.oauthpopup.js"></script>
 <script src="/static/scripts/meme.js"></script>
 <script src="/static/js/main.js"></script>
 
