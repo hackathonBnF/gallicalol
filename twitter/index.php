@@ -1,6 +1,11 @@
 <?php
 session_start();
-$session["token"] = $_GET["oauth_token"];
-$session["verifier"] = $_GET["oauth_verifier"];
-header('Location: '."../create.php");
+$_SESSION["token"] = $_GET["oauth_token"];
+$_SESSION["verifier"] = $_GET["oauth_verifier"];
 ?>
+
+<html>
+<boddy>
+<script type="text/javascript">window.close();</script>
+</boddy>
+</html>

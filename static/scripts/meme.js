@@ -7,6 +7,7 @@ var $scale = $('#scale');
 var $textOne = $('#text-1');
 var $textTwo = $('#text-2');
 var $download = $('#download');
+var $download_hidden = $('#download_hidden');
 
 var img = new Image();
 // img.setAttribute('crossOrigin', 'anonymous');
@@ -78,6 +79,7 @@ function refreshDownloadLink() {
   var dataURL = canvas.toDataURL('image/jpeg');
   dataURL = dataURL.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
   $download.attr('href', dataURL);
+  $download_hidden.attr('value', dataURL);
 }
 
 $downloadIntoCanvas.on('click', function(e) {

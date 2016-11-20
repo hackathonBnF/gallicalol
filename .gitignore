@@ -90,3 +90,5 @@ ENV/
 .ropeproject
 
 /vendor/
+
+db/gallicalol.db

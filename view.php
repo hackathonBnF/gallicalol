@@ -1,3 +1,11 @@
+<?php
+
+$db = new SQLite3("db/gallicalol.db");
+$request = $db->prepare('SELECT * FROM memes WHERE id = :id');
+$request->bindValue( ':id', $_GET['id'] );
+$result = $request->execute();
+$meme = $result->fetchArray();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -29,52 +37,15 @@
     <a class="create nav-link" href="#">créer</a>
   </div>
 </nav>
-<form action="./store.php" method="post">
-<input type="hidden" name="query" value="<?php echo $_GET['query']; ?>" />
-<input type="hidden" name="download_hidden" id="download_hidden" />
 
 <div class="row">
 
 <div class="image col-lg-8">
 
-  <canvas id="canvas" width="600" height="400"></canvas>
-
-  <hr>
-
-  Redimensionner : <input id="scale" name="scale" max="4" min="0.1" step="0.01" type="range" value="1" />
-
+  <img alt="Meme n° <?php echo $GET['id'] ?>" src="<?php echo $meme['image'] ?>" />
 </div>
 
 <div class="caption col-lg-4">
-
-  <div id="media">
-  <input type="url" class="form-control" id="image-url" placeholder="Entrez l'URL de l'image"
-    value="http://gallica.bnf.fr/ark:/12148/btv1b90130097/f1.highres">
-  <button id="download-into-canvas" class="btn btn-block btn-primary">Télécharger</button>
-
-  </div>
-
-  <label>Texte du haut</label>
-  <textarea class="form-control" id="text-1" name="top_text"></textarea>
-
-  <label>Texte du bas</label>
-  <textarea class="form-control" id="text-2" name="bottom_text"></textarea>
-
-  <div class="actions">
-
-    <button type="submit" formmethod="post" formaction="./store.php" class="btn btn-block btn-success" id="save" ><i class="fa fa-save" aria-hidden="true"></i> Sauver</button>
-
-    <a class="btn btn-block btn-success" id="download" href="#" download="gallica.jpg"><i class="fa fa-download" aria-hidden="true"></i>
- Télécharger</a>
-    <hr>
-
-    <button class="btn btn-info" id="twitter-login"><i class="fa fa-twitter" aria-hidden="true"></i>
- Se connecter sur twitter</button>
-
-    <button class="btn btn-info" id="twitter-post"><i class="fa fa-twitter" aria-hidden="true"></i>
- Partager sur twitter</button>
-
-  </div>
 
 </div>
 
@@ -90,3 +61,4 @@
 
 </body>
 </html>
+
