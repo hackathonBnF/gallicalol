@@ -21,7 +21,7 @@
 
 <nav class="navbar navbar-light">
 
-  <a class="navbar-brand" href="#">gallical.lol</a>
+  <a class="navbar-brand" href="/">gallical.lol</a>
 
 
   <div class="nav navbar-inline float-xs-right">
@@ -44,9 +44,13 @@
 
 <div class="caption col-lg-4">
 
+  <div id="media">
+
   <input type="url" class="form-control" id="image-url" placeholder="Entrez l'URL de l'image"
     value="http://gallica.bnf.fr/ark:/12148/btv1b90130097/f1.highres">
   <button id="download-into-canvas" class="btn btn-block btn-primary">Télécharger</button>
+
+  </div>
 
   <label>Texte du haut</label>
   <textarea class="form-control" id="text-1"></textarea>
@@ -77,6 +81,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="
   sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
 <script src="/static/scripts/meme.js"></script>
+<script src="/static/js/main.js"></script>
 
 </body>
 </html>

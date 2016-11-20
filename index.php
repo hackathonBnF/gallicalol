@@ -18,12 +18,12 @@
 
 <nav class="navbar navbar-light">
 
-  <a class="navbar-brand" href="#">gallical.lol</a>
+  <a class="navbar-brand" href="/">gallical.lol</a>
 
 
   <div class="nav navbar-inline float-xs-right">
     <a class="browse nav-link" href="#">chercher</a>
-    <a class="create nav-link" href="#">créer</a>
+    <a class="create nav-link" href="/create.php">créer</a>
   </div>
 </nav>
 
