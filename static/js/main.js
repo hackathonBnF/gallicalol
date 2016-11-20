@@ -16,6 +16,8 @@ if(params["query"] != "" && params["query"] != undefined){
 	$("#media").hide();
 }
 
+$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 220 });
+
 $("#search").submit(function(e){
 	$("#results").empty();
 
@@ -31,10 +33,14 @@ $("#search").submit(function(e){
 		$.each(data, function(idx){
 			result = data[idx];
 			console.log(result["img"]);
-			$("#results").append($("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>"));
+
+			$content = $("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
+
+			$("#results")
+				.append($content)
+				.masonry( 'appended', $content );
 		});
 
-		$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 220 });
 		
 		$("#results").imagesLoaded().progress(function(){
 			$("#results").masonry('layout');
