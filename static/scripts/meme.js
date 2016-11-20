@@ -87,7 +87,7 @@ $downloadIntoCanvas.on('click', function(e) {
   loadImageIntoCanvas();
 });
 
-$scale.on('change', renderMeme);
+$scale.on('input', renderMeme);
 
 // $download.on('click', function(e) {
 //   e.preventDefault();
