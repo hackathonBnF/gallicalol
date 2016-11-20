@@ -15,3 +15,15 @@ composer install
 ```
 php -S localhost:8000
 ```
+
+## Contributors
+
+- antoine
+- coline
+- mehdi
+- manu
+- mellisande
+- mex
+- vincent
+- tk @taniki
+- clémence

@@ -5,6 +5,10 @@ $request = $db->prepare('SELECT * FROM memes WHERE id = :id');
 $request->bindValue( ':id', $_GET['id'] );
 $result = $request->execute();
 $meme = $result->fetchArray();
+
+$gallica_url = $meme['gallica_url'];
+$pattern = '/(ark.*)\/f1.highres/';
+preg_match($pattern, $gallica_url, $ark, PREG_OFFSET_CAPTURE );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
@@ -40,14 +44,27 @@ $meme = $result->fetchArray();
 
 <div class="row">
 
-<div class="image col-lg-8">
+<div class="image col-lg-12">
+  <div>
+       <img alt="Meme n° <?php echo $GET['id'] ?>" src="<?php echo $meme['image'] ?>" />
+  </div>
+  <div>
 
-  <img alt="Meme n° <?php echo $GET['id'] ?>" src="<?php echo $meme['image'] ?>" />
+<?php
+
+$context  = stream_context_create(array('http' => array('header' => 'Accept: application/xml')));
+$url_query = 'http://gallica.bnf.fr/services/OAIRecord?ark=' . urlencode( $ark[1][0] );
+$xml = file_get_contents( $url_query , false, $context);
+$xml = simplexml_load_string($xml);
+
+$title = $xml->xpath('//title');
+$date = $xml->xpath('//date');
+?>
+       <a href="<?php echo 'http://gallica.bnf.fr/' . $ark[1][0] ?>" target="_blank"><?php echo $title[0] . ' (' . $date[0] . ')'?></a><br />
+
+  </div>
 </div>
 
-<div class="caption col-lg-4">
-
-</div>
 
 </div> <!-- big row -->
 </form>

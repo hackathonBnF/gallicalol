@@ -66,11 +66,7 @@ $("#search").submit(function(e){
 				{
 					
 
-					/*$content = $("<div class=\"grid-item\" ><img style =\"width: 520px\" src=\"static/images/pageVide.gif\" /></div>");
-					//console.log("Je crée : "+$content);
-					$("#results")
-						.append($content)
-						.masonry( 'appended', $content );*/
+
 
 					$content = $("<div class=\"grid-item\" style=\"text-align:center;font-size:28px;\"> Pas de résultat à votre recherche... </div>");
 					$("#results")
