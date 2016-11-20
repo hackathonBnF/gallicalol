@@ -18,8 +18,10 @@ div.nav {
 	text-align: center;
 }
 
-.caption h3 {
+.caption label {
 	font-size: 12px;
+	margin-top : 10px;
+	margin-bottom: 2px;
 }
 
 .caption textarea {
