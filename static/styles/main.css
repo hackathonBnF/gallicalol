@@ -40,6 +40,24 @@ div.nav {
 	border: 1px dashed lightgrey;
 }
 
+#messages {
+	padding : 20px 0;
+	text-align: center;
+	display: none;
+}
+
+#messages > div > div {
+	display: block;
+	margin-top : 0;
+	margin-bottom : 10px;
+}
+
+#loading {
+	display: none;
+	text-align: center;
+	padding : 30px 0;
+}
+
 #search input { width: 100%; }
 #search button { width: 100%; }
 

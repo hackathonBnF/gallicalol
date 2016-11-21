@@ -61,7 +61,11 @@ if ($('#results').length === 1) {
 }
 
 $("#search").submit(function(e){
+	$("#loading").show();
+	$("#messages").hide();
 	$("#results").empty();
+
+	$("#results").masonry('layout');
 
 	e.preventDefault();
 
@@ -71,8 +75,13 @@ $("#search").submit(function(e){
 
 
 	$.get("/api/fetch.php", { "query" : $("#query").val() },function(data){
+
+		$("#loading").hide();
+
 		//console.log(data);
 		//console.log(data[0]["img"]);
+
+		if (data.length == 0) $("#messages").show();
 
 		$.each(data, function(idx){
 			result = data[idx];

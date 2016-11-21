@@ -19,6 +19,15 @@
   </div>
 </form>
 
+<div id="messages">
+  <div id="no-results" class="">
+    <div>Aucune image trouvée</div>
+    <img src="/static/images/search-fail.gif" alt="" loop="1" />
+  </div>
+</div>
+<div id="loading" class="">
+  <img src="/static/images/loading.gif" alt="" />
+</div>
 <div id="results" class="grid"></div>
 
 </div>
