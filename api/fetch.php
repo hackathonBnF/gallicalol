@@ -15,7 +15,7 @@ $url_query = 'http://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&max
   foreach ($xml->xpath('//dc:identifier') as $identifier) {
 	  if ( preg_match( '/gallica.bnf.fr/', $identifier ) ) {
       //$r["id"] = $identifier[0];
-      $r["thumb"] = $identifier[0].".thumbnail";
+      $r["thumb"] = $identifier[0]."/lowres";
       $r["img"] = $identifier[0]."/f1.highres";
 
       array_push($results, $r);
@@ -25,4 +25,3 @@ $url_query = 'http://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&max
 echo(json_encode($results));
 
 ?>
-
