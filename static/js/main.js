@@ -38,6 +38,56 @@ $('#post-to-twitter').on('click', function(e) {
 
 })
 
+function next(){
+	var current_page = parseInt($("#page").html());
+	var records = parseInt($("#total").html());
+
+	// console.log(current_page);
+
+	if( current_page * 50 <= records ){
+		current_page += 1;
+		$("#page").html(current_page);
+
+		$("#loading").show();
+
+		var query = {
+			"query" : $("#query").val(),
+			"page": current_page
+		};
+
+		$.get("/api/fetch.php", query, function(data){
+			$("#loading").hide();
+			results_append(data["results"], $("#results"));
+
+			if ( parseInt($("#page").html()) <  Math.ceil($("#total").html()/50) ) $("#pagination").show();
+
+		});
+	}
+}
+
+$("#next a").click(function(e){
+		e.preventDefault();
+		$("#pagination").hide();
+		next();
+});
+
+function results_append(results, $target){
+
+	$.each(results, function(idx){
+		result = results[idx];
+
+		$content = $("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
+
+		$target
+			.append($content)
+			.masonry('appended', $content);
+	});
+
+	$target.imagesLoaded().progress(function(){
+		$target.masonry('layout');
+	});
+}
+
 $(document).ready(function(){
 
 var params={};
@@ -61,6 +111,9 @@ if ($('#results').length === 1) {
 }
 
 $("#search").submit(function(e){
+	$("#page").html("1");
+	$("#total").html("0");
+
 	$("#loading").show();
 	$("#messages").hide();
 	$("#results").empty();
@@ -69,35 +122,48 @@ $("#search").submit(function(e){
 
 	e.preventDefault();
 
-	// $grid.imagesLoaded().progress( function() {
-	// 	$grid.masonry('layout');
-	// });
-
-
 	$.get("/api/fetch.php", { "query" : $("#query").val() },function(data){
-
 		$("#loading").hide();
 
 		//console.log(data);
 		//console.log(data[0]["img"]);
 
-		if (data.length == 0) $("#messages").show();
+		if (data["results"].length == 0) $("#messages").show();
 
-		$.each(data, function(idx){
-			result = data[idx];
-			//console.log(result["img"]);
+		results_append(data["results"], $("#results"));
 
-			$content = $("<div class=\"grid-item\"><a href=\"/create.php?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
+		$("#total").html(data['records']);
 
-			$("#results")
-				.append($content)
-				.masonry( 'appended', $content );
+		if ( parseInt($("#page").html()) <=  Math.ceil($("#total").html()/50) ) $("#pagination").show();
+
+		/* ça marche à moitié
+		console.log(Math.ceil($("#total").html()/50));
+
+		$("#results").infinitescroll({
+			debug: true,
+			// loading : {
+			//	start: function(){ $("#loading").show(); },
+			//	finished: function(){ $("#loading").hide(); }
+			// },
+			navSelector: "nav#pagination",
+			nextSelector: "#next a",
+			itemSelect: ".grid-item",
+			path: function(page){
+				var query = {
+					"query" : $("#query").val(),
+					"page": page
+				};
+
+				return "/api/fetch.php?"+$.param(query);
+			},
+			dataType: "json",
+			maxPage: Math.ceil($("#total").html()/50),
+			appendCallback: false
+		}, function(data, opts){
+			results_append(data["results"], $("#results"));
 		});
+		*/
 
-
-		$("#results").imagesLoaded().progress(function(){
-			$("#results").masonry('layout');
-		});
 	});
 });
 

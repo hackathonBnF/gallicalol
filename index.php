@@ -3,7 +3,7 @@
 <head>
   <?php include("includes/head.php") ?>
 </head>
-<body>
+<body data-spy="scroll" data-target="#pagination">
 
 <div class="container">
 
@@ -25,10 +25,18 @@
     <img src="/static/images/search-fail.gif" alt="" loop="1" />
   </div>
 </div>
+
+<div id="results" class="grid"></div>
+
 <div id="loading" class="">
   <img src="/static/images/loading.gif" alt="" />
 </div>
-<div id="results" class="grid"></div>
+
+<nav class="" id="pagination">
+  <div class="" id="page">1</div>
+  <div class="" id="total"></div>
+  <div class="" id="next"><a href="#">afficher plus d'images</a></div>
+</nav>
 
 </div>
 
@@ -44,6 +52,7 @@
 
 <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
 <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.1.0/jquery.infinitescroll.min.js"></script>
 <script src="/static/js/main.js"></script>
 
 </body>

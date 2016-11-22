@@ -1,3 +1,7 @@
+body {
+	position: relative;
+}
+
 .navbar-brand {
 	font-family: 'Open Sans', sans-serif;
 	/*font-size: 32;*/
@@ -60,6 +64,10 @@ div.nav {
 
 #search input { width: 100%; }
 #search button { width: 100%; }
+
+#pagination { text-align : center; display: none; }
+#pagination #page { display : none; }
+#pagination #total { display : none; }
 
 #footer {
 	margin-top: 50px;
