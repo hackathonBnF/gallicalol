@@ -40,6 +40,7 @@ unlink($temp_file);
 // Send status update with attached media
 $parameters = [
     'status' => $_POST['status'],
+    'place_id' => "ChIJAflt_zxy5kcRmeE4zjXi9ig", // BnF
     'media_ids' => implode(',', [$media->media_id])
 ];
 $result = $connection->post('statuses/update', $parameters);
