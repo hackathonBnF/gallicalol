@@ -44,6 +44,10 @@ div.nav {
 	border: 1px dashed lightgrey;
 }
 
+#canvas.drag {
+	cursor: url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/openhand.cur), default !important;
+}
+
 #messages {
 	padding : 20px 0;
 	text-align: center;

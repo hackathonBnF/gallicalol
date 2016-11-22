@@ -106,6 +106,8 @@ $(canvas).mousedown(function(){
 
   prevX=0;
   prevY=0;
+
+  $(canvas).addClass("drag");
 });
 
 $(canvas).mouseup(function(){
@@ -113,6 +115,8 @@ $(canvas).mouseup(function(){
 
   prevX=0;
   prevY=0;
+
+  $(canvas).removeClass("drag");
 });
 
 $(window).mousemove(function(event) {
