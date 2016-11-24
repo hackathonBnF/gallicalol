@@ -1,7 +1,26 @@
 {
-    "name": "alex/gallicalol",
+    "name": "hackathonBnF/gallicalol",
     "authors": [
         {
+            "name": "Vincent Ducos",
+            "email": "vincent.ducos@gmail.com"
+        }, {
+            "name": "Tam Kien Duong",
+            "email": "tk@deveha.com"
+        }, {
+            "name": "Antoine"
+        }, {
+            "name": "Coline"
+        }, {
+            "name": "Mehdi Guiraud",
+            "email": "mehdi.guiraud@gmail.com"
+        }, {
+            "name": "Manu"
+        }, {
+            "name": "Mellisande"
+        }, {
+            "name": "Clémence"
+        }, {
             "name": "Alexandre Segura",
             "email": "mex.zktk@gmail.com"
         }
