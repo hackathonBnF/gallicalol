@@ -1,13 +1,12 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 
-var $imageURL = $('#image-url');
-var $downloadIntoCanvas = $('#download-into-canvas');
 var $scale = $('#scale');
 var $textOne = $('#text-1');
 var $textTwo = $('#text-2');
 var $download = $('#download');
 var $download_hidden = $('#download_hidden');
+var $sourceImage = $('#source-image');
 
 var img = new Image();
 // img.setAttribute('crossOrigin', 'anonymous');
@@ -24,6 +23,9 @@ var moveXAmount = 0;
 var moveYAmount = 0;
 
 function loadImageIntoCanvas() {
+
+  imageURL = '/proxy.php?url=' + encodeURIComponent($sourceImage.attr('src'));
+
   img.onload = function() {
     x = canvas.width / 2 - img.width / 2;
     y = canvas.height / 2 - img.height / 2;
@@ -82,13 +84,6 @@ function refreshDownloadLink() {
   $download_hidden.attr('value', dataURL);
 }
 
-$downloadIntoCanvas.on('click', function(e) {
-  e.preventDefault();
-  imageURL = '/proxy.php?url=' + encodeURIComponent($imageURL.val());
-  //console.log(imageURL);
-  loadImageIntoCanvas();
-});
-
 $scale.on('input', renderMeme);
 
 // $download.on('click', function(e) {
@@ -132,3 +127,7 @@ $(window).mousemove(function(event) {
       prevY = event.pageY;
   }
 });
+
+(function() {
+  loadImageIntoCanvas();
+})();

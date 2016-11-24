@@ -90,22 +90,6 @@ function results_append(results, $target){
 
 $(document).ready(function(){
 
-var params={};
-window.location.search
-  .replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str,key,value) {
-    params[key] = value;
-  }
-);
-
-//console.log("query", params["query"]);
-
-if(params["query"] != "" && params["query"] != undefined){
-
-	$("#image-url").val(decodeURIComponent(params["query"]));
-	$('#download-into-canvas').click();
-	$("#media").hide();
-}
-
 if ($('#results').length === 1) {
 	$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
 }
