@@ -1,6 +1,6 @@
 <?php
 
-$dotenv = new Dotenv\Dotenv("../");
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/../../');
 $dotenv->load();
 
 define('CONSUMER_KEY', getenv('CONSUMER_KEY'));

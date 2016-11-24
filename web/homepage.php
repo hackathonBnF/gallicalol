@@ -1,5 +1,5 @@
 <?php
-$db = new SQLite3("db/gallicalol.db");
+$db = new SQLite3("../db/gallicalol.db");
 $request = $db->prepare( 'SELECT * FROM memes ORDER BY clicked DESC LIMIT 50');
 $result = $request->execute();
 if ( $result ) {

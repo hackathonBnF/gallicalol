@@ -1,6 +1,6 @@
 <?php
 
-$db = new SQLite3("db/gallicalol.db");
+$db = new SQLite3("../db/gallicalol.db");
 $request = $db->prepare('SELECT * FROM memes WHERE id = :id');
 $request->bindValue( ':id', $_GET['id'] );
 $result = $request->execute();
