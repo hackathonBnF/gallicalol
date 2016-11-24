@@ -91,6 +91,7 @@ ENV/
 
 /vendor/
 
-db/gallicalol.db
+/db/*
+!db/.gitkeep
 
 /gallica.lol/
