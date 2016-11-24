@@ -1,59 +1,88 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <?php include("includes/head.php") ?>
-</head>
-<body data-spy="scroll" data-target="#pagination">
+<?php
 
-<div class="container">
+require_once __DIR__.'/../vendor/autoload.php';
 
-<div class="row">
+use Symfony\Component\HttpFoundation\Request;
 
-  <?php include("includes/navbar.php") ?>
+$app = new Silex\Application();
 
-<div>
-<form id="search" class="form-inline">
-  <div class="row">
-	<div class="col-xs-10"><input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" value="<?php if ( !empty($_GET["query"])) { echo $_GET["query"]; } else { echo "Bibliothèque"; } ?>" /></div>
-	<div class="col-xs-2"><button type="submit" class="btn btn-primary">chercher</button></div>
-  </div>
-</form>
+$app['debug'] = true;
 
-<div id="messages">
-  <div id="no-results" class="">
-    <div>Aucune image trouvée</div>
-    <img src="/static/images/search-fail.gif" alt="" loop="1" />
-  </div>
-</div>
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/views',
+));
+$app->register(new Silex\Provider\SessionServiceProvider());
 
-<div id="results" class="grid"></div>
+$app['db'] = new SQLite3("../db/gallicalol.db");
 
-<div id="loading" class="">
-  <img src="/static/images/loading.gif" alt="" />
-</div>
+$app->get('/', function(Request $request) use ($app) {
+    $query = $request->query->get('query', 'Bibliothèque');
 
-<nav class="" id="pagination">
-  <div class="" id="page">1</div>
-  <div class="" id="total"></div>
-  <div class="" id="next"><a href="#">afficher plus d'images</a></div>
-</nav>
+    return $app['twig']->render('index.twig', [
+        'query' => $query,
+    ]);
+});
 
-</div>
+$app->get('/create', function(Request $request) use ($app) {
+    $query = $request->query->get('query');
 
-</div>
+    $access_token = $app['session']->get('access_token');
+    $access_token_secret = $app['session']->get('access_token_secret');
 
-<?php include("includes/footer.php") ?>
+    $is_authenticated = !empty($access_token) && !empty($access_token_secret);
 
-</div>
+    return $app['twig']->render('create.twig', [
+        'query' => $query,
+        'is_authenticated' => $is_authenticated,
+    ]);
+});
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="
-  sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+$app->get('/memes', function(Request $request) use ($app) {
 
-<script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
-<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.1.0/jquery.infinitescroll.min.js"></script>
-<script src="/static/js/main.js"></script>
+    $request = $app['db']->prepare( 'SELECT * FROM memes ORDER BY clicked DESC LIMIT 50');
+    $result = $request->execute();
 
-</body>
-</html>
+    $memes = [];
+    if ($result) {
+        while ($meme = $result->fetchArray()) {
+            $memes[] = $meme;
+        }
+    }
+
+    return $app['twig']->render('memes.twig', [
+        'memes' => $memes,
+    ]);
+});
+
+$app->get('/memes/{id}', function($id, Request $request) use ($app) {
+
+    $request = $app['db']->prepare('SELECT * FROM memes WHERE id = :id');
+    $request->bindValue(':id', $id);
+    $result = $request->execute();
+    $meme = $result->fetchArray();
+
+    $gallica_url = $meme['gallica_url'];
+    $pattern = '/(ark.*)\/f1.highres/';
+    preg_match($pattern, $gallica_url, $ark, PREG_OFFSET_CAPTURE);
+
+    $context  = stream_context_create(array('http' => array('header' => 'Accept: application/xml')));
+    $url_query = 'http://gallica.bnf.fr/services/OAIRecord?ark=' . urlencode( $ark[1][0] );
+    $xml = file_get_contents($url_query , false, $context);
+    $xml = simplexml_load_string($xml);
+
+    $title = $xml->xpath('//title');
+    $date = $xml->xpath('//date');
+
+    $source = [
+        'url' => 'http://gallica.bnf.fr/' . $ark[1][0],
+        'title' => $title[0],
+        'date' => $date[0],
+    ];
+
+    return $app['twig']->render('meme.twig', [
+        'meme' => $meme,
+        'source' => $source,
+    ]);
+});
+
+$app->run();

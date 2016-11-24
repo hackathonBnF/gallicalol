@@ -27,6 +27,8 @@
     ],
     "require": {
         "abraham/twitteroauth": "^0.7.1",
-        "vlucas/phpdotenv": "*"
+        "vlucas/phpdotenv": "*",
+        "silex/silex": "~2.0",
+        "twig/twig": "^1.28"
     }
 }

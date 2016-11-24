@@ -1,0 +1,14 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="row">
+  <div class="image col-lg-12">
+    <div>
+      <img alt="Meme n° {{ meme.id }}" src="{{ meme.image }}" />
+    </div>
+    <div>
+      <a href="{{ source.url }}" target="_blank">{{ source.title }} ({{ source.date }})</a><br />
+    </div>
+  </div>
+</div>
+{% endblock %}

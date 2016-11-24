@@ -1,0 +1,32 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <form id="search" class="form-inline">
+    <div class="row">
+      <div class="col-xs-10">
+        <input type="text" id="query" name="query" class="form-control input-sm" maxlength="64" placeholder="Chercher une image" value="{{ query }}" />
+      </div>
+      <div class="col-xs-2"><button type="submit" class="btn btn-primary">chercher</button></div>
+    </div>
+  </form>
+
+  <div id="messages">
+    <div id="no-results" class="">
+      <div>Aucune image trouvée</div>
+      <img src="/static/images/search-fail.gif" alt="" loop="1" />
+    </div>
+  </div>
+
+  <div id="results" class="grid">
+  </div>
+
+  <div id="loading" class="">
+    <img src="/static/images/loading.gif" alt="" />
+  </div>
+
+  <nav class="" id="pagination">
+    <div class="" id="page">1</div>
+    <div class="" id="total"></div>
+    <div class="" id="next"><a href="#">afficher plus d'images</a></div>
+  </nav>
+{% endblock %}
