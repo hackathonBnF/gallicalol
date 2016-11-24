@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+LOGIN=8090872
+FOLDER_NAME=gallica.lol
+
+mkdir -p ${FOLDER_NAME}
+
+# Check if already mounted
+IS_MOUNTED=$(mount | grep -c $LOGIN)
+if [ $IS_MOUNTED -eq 0 ]; then
+    echo "Mounting remote folder with SSHFS..."
+    sshfs $LOGIN@sftp.dc0.gpaas.net:/ "${FOLDER_NAME}/" -oauto_cache,reconnect,defer_permissions,noappledouble
+    # Make sure the folder is mounted
+    while [ $IS_MOUNTED -eq 0 ]
+    do
+       echo "Waiting for mount..."
+       IS_MOUNTED=$(mount | grep -c $LOGIN)
+    done
+    echo "Remote folder mounted !"
+else
+    echo "Remote folder mounted !"
+fi

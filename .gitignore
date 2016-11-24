@@ -92,3 +92,5 @@ ENV/
 /vendor/
 
 db/gallicalol.db
+
+/gallica.lol/
