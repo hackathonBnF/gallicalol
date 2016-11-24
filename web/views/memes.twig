@@ -5,7 +5,7 @@
   <div>
     <div id="memes" class="grid">
       {% for meme in memes %}
-      <div class="grid-item"><a href="/view.php?id={{ meme.id }}"><img src="{{ meme.image }}" /></a></div>
+      <div class="grid-item"><a href="/memes/{{ meme.id }}"><img src="{{ meme.image }}" /></a></div>
       {% endfor %}
     </div>
   </div>
