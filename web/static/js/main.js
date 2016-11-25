@@ -106,11 +106,12 @@ $("#search").submit(function(e){
 
 	e.preventDefault();
 
+	// Update browser query string with search term
+	var queryParamName = $("#query").attr('name');
+	window.history.pushState({}, $('title').text(), '/?'+queryParamName+'='+$("#query").val());
+
 	$.get("/api/fetch.php", { "query" : $("#query").val() },function(data){
 		$("#loading").hide();
-
-		//console.log(data);
-		//console.log(data[0]["img"]);
 
 		if (data["results"].length == 0) $("#messages").show();
 
