@@ -43,9 +43,9 @@ body {
 	z-index: 1;
 }
 .grid-item:hover img {
-    -moz-transform: scale(1.05, 1.05);
-    -webkit-transform: scale(1.05, 1.05);
-    transform: scale(1.05, 1.05);
+    -moz-transform: scale(1.5, 1.5);
+    -webkit-transform: scale(1.5, 1.5);
+    transform: scale(1.5, 1.5);
     -moz-opacity: 1;
     -webkit-opacity: 1;
     opacity: 1;
