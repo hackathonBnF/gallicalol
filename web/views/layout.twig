@@ -9,10 +9,8 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
   </head>
   <body data-spy="scroll" data-target="#pagination">
+    {% include "navbar.twig" %}
     <div class="container">
-      <div class="row">
-        {% include "navbar.twig" %}
-      </div>
       {% block content %}{% endblock %}
       {% include "footer.twig" %}
     </div>

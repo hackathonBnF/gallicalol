@@ -15,11 +15,6 @@ div.nav {
 
 .nav .create { margin-left: 15px; }
 
-
-.container {
-	margin-bottom: 50px;
-}
-
 .image {
 	text-align: center;
 }
@@ -65,9 +60,6 @@ div.nav {
 	text-align: center;
 	padding : 30px 0;
 }
-
-#search input { width: 100%; }
-#search button { width: 100%; }
 
 #pagination { text-align : center; display: none; }
 #pagination #page { display : none; }
