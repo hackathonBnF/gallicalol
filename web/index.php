@@ -1,5 +1,10 @@
 <?php
 
+$filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
+if (php_sapi_name() === 'cli-server' && is_file($filename)) {
+    return false;
+}
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +18,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 $app->register(new Silex\Provider\SessionServiceProvider());
 
-$app['db'] = new SQLite3("../db/gallicalol.db");
+$app['db'] = new SQLite3(__DIR__."/../db/gallicalol.db");
 
 $app->get('/', function(Request $request) use ($app) {
     $query = $request->query->get('query', 'Bibliothèque');
@@ -23,8 +28,11 @@ $app->get('/', function(Request $request) use ($app) {
     ]);
 });
 
-$app->get('/create', function(Request $request) use ($app) {
-    $query = $request->query->get('query');
+$app->get('/ark:/{naan}/{name}.meme', function($naan, $name, Request $request) use ($app) {
+
+    $identifier = $request->getPathInfo();
+
+    $query = 'http://gallica.bnf.fr'.$identifier.'/f1.highres';
 
     $access_token = $app['session']->get('access_token');
     $access_token_secret = $app['session']->get('access_token_secret');
@@ -35,7 +43,9 @@ $app->get('/create', function(Request $request) use ($app) {
         'query' => $query,
         'is_authenticated' => $is_authenticated,
     ]);
-});
+})
+->assert('naan', '\d+')
+->assert('name', '[a-z0-9]+');
 
 $app->get('/memes', function(Request $request) use ($app) {
 

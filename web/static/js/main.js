@@ -76,7 +76,7 @@ function results_append(results, $target){
 	$.each(results, function(idx){
 		result = results[idx];
 
-		$content = $("<div class=\"grid-item\"><a href=\"/create?query="+encodeURIComponent(result["img"])+"\"><img src=\""+result["thumb"]+"\" /></a></div>");
+		$content = $('<div class="grid-item"><a href="/'+result["id"]+'.meme"><img src="'+result["thumb"]+"\" /></a></div>");
 
 		$target
 			.append($content)

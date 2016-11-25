@@ -30,12 +30,16 @@ $xml = simplexml_load_string($xml);
 $results = [];
 
 foreach ($xml->xpath('//dc:identifier') as $identifier) {
-  if ( preg_match( '/gallica.bnf.fr/', $identifier ) ) {
+  $identifier = (string) $identifier;
+  // @link http://www.bnf.fr/fr/professionnels/issn_isbn_autres_numeros/a.ark.html
+  if ( preg_match( '#^https?://gallica.bnf.fr/(ark:.*)#', $identifier, $matches ) ) {
+
+    $ark_id = $matches[1];
 
     $r = [
-      "id" => $identifier[0],
-      "thumb" => $identifier[0]."/lowres",
-      "img" => $identifier[0]."/f1.highres"
+      "id" => $ark_id,
+      "thumb" => $identifier."/lowres",
+      "img" => $identifier."/f1.highres"
     ];
 
     array_push($results, $r);

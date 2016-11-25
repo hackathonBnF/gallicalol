@@ -13,7 +13,7 @@ composer install
 ### Run local server using PHP
 
 ```
-php -S localhost:8000 -t web/
+php -S localhost:8000 -t web/ web/index.php
 ```
 
 ## Contributors
