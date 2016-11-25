@@ -31,9 +31,29 @@ div.nav {
 	font-size: 24px;
 }
 .grid-item { margin : 10px; }
-.grid-item img { width: 265px; }
+.grid-item img {
+	width: 265px;
+	-moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    -moz-opacity: 0.8;
+    -webkit-opacity: 0.8;
+    opacity: 0.8;
+}
 .actions { margin-top: 20px; }
 .actions button { width : 100%; margin-bottom : 10px;}
+
+.grid-item:hover {
+	z-index: 1;
+}
+.grid-item:hover img {
+    -moz-transform: scale(1.05, 1.05);
+    -webkit-transform: scale(1.05, 1.05);
+    transform: scale(1.05, 1.05);
+    -moz-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+}
 
 #canvas {
 	border: 1px dashed lightgrey;
