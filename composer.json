@@ -29,6 +29,7 @@
         "abraham/twitteroauth": "^0.7.1",
         "vlucas/phpdotenv": "*",
         "silex/silex": "~2.0",
-        "twig/twig": "^1.28"
+        "twig/twig": "^1.28",
+        "doctrine/cache": "^1.6"
     }
 }
