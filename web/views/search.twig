@@ -1,14 +1,14 @@
 
     <form id="search" method="get" action="/">
-      
+
         <div class="input-group">
-        
-          <input type="text" id="query" name="q" class="form-control" maxlength="64" placeholder="Chercher une image" value="{{ query }}">
+
+          <input type="text" id="query" name="q" class="form-control" maxlength="64" placeholder="Chercher une image" value="{% if query is defined %}{{ query }}{% endif %}">
           <span class="input-group-btn">
             <button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> chercher</button>
           </span>
-           
-        
+
+
       </div>
     </form>
- 
+

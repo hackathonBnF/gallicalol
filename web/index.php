@@ -28,7 +28,6 @@ $app->get('/', function(Request $request) use ($app) {
 
     return $app['twig']->render('index.twig', [
         'query' => $query,
-        'display_search' => true,
     ]);
 });
 
@@ -44,9 +43,8 @@ $app->get('/ark:/{naan}/{name}.meme', function($naan, $name, Request $request) u
     $is_authenticated = !empty($access_token) && !empty($access_token_secret);
 
     return $app['twig']->render('create.twig', [
-        'query' => $query,
+        'src_image' => $query,
         'is_authenticated' => $is_authenticated,
-        'display_search' => false,
     ]);
 })
 ->assert('naan', '\d+')

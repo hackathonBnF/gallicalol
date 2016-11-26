@@ -2,13 +2,13 @@
 
 {% block content %}
 <form action="/store.php" method="post">
-  <input type="hidden" name="query" value="{{ query }}" />
+  <input type="hidden" name="query" value="{{ src_image }}" />
   <input type="hidden" name="download_hidden" id="download_hidden" />
 
   <div class="row">
 
     <div class="image col-lg-8">
-      <img src="{{ query }}" id="source-image" style="display: none;" />
+      <img src="{{ src_image }}" id="source-image" style="display: none;" />
       <canvas id="canvas" width="600" height="400"></canvas>
       <hr>
       Redimensionner : <input id="scale" name="scale" max="4" min="0.1" step="0.01" type="range" value="1" />
