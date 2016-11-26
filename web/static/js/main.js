@@ -72,11 +72,13 @@ $("#next a").click(function(e){
 });
 
 function results_append(results, $target){
+		$target
+			.append('<div class="grid-sizer"></div>')
 
 	$.each(results, function(idx){
 		result = results[idx];
 
-		$content = $('<div class="grid-item"><a href="/'+result["id"]+'.meme"><img src="'+result["thumb"]+"\" /></a></div>");
+		$content = $('<div class="grid-item grid-item--width2"><a href="/'+result["id"]+'.meme"><img src="'+result["thumb"]+"\" /></a></div>");
 
 		$target
 			.append($content)
@@ -91,7 +93,7 @@ function results_append(results, $target){
 $(document).ready(function(){
 
 if ($('#results').length === 1) {
-	$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
+	$("#results").masonry({ itemSelector: '.grid-item', columnWidth: '.grid-sizer', gutter: 6, percentPosition: true });
 }
 
 $("#search").submit(function(e){

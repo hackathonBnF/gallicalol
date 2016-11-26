@@ -2,13 +2,40 @@ body {
 	position: relative;
 }
 
+.container.lol {
+    padding: 10px 0;
+}
+
+.container.lol .navbar, .lol .col-sm-4, .lol .col-sm-8, .lol .col-xs-12 {
+    padding: 0;
+}
+
+.container.lol:first-child, .container.lol:first-child .navbar {
+    padding: 0;
+}
+
+#search {
+    padding-bottom: 20px;
+}
+
+
+
 .navbar-brand {
 	font-family: 'Open Sans', sans-serif;
 	/*font-size: 32;*/
 	font-weight: 800;
+	margin-right: 11rem;
 	/*text-transform: uppercase;*/
 }
 
+a.browse {
+    font-size: 13px;
+    color: #ddd;
+}
+
+div.nav {
+	line-height: 1rem;
+}
 .nav .create { margin-left: 15px; }
 
 .image {
@@ -26,21 +53,27 @@ body {
 	height: 200px;
 	font-size: 24px;
 }
-.grid-item { margin : 10px; }
+.grid-sizer, .grid-item { width: 24.5%;}
+
+
+
 .grid-item img {
-	width: 265px;
-	-moz-transition: all .2s ease-in-out;
-    -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    -moz-opacity: 0.8;
-    -webkit-opacity: 0.8;
-    opacity: 0.8;
+	width:100%;
+	-moz-transition: all .4s ease;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+    -moz-opacity: 0.7;
+    -webkit-opacity: 0.7;
+    opacity: 0.7;
 }
 .actions { margin-top: 20px; }
 .actions button { width : 100%; margin-bottom : 10px;}
 
-.grid-item:hover {
-	z-index: 1;
+.grid-item{
+	z-index: 2;
+}
+.grid-item:hover{
+	z-index: 3;
 }
 .grid-item:hover img {
     -moz-transform: scale(1.5, 1.5);
@@ -49,6 +82,34 @@ body {
     -moz-opacity: 1;
     -webkit-opacity: 1;
     opacity: 1;
+}
+
+@media screen and (max-width: 1000px) {
+  /* 5 columns for larger screens */
+  .grid-sizer, .grid-item  { width: 32.5%; }
+}
+
+@media screen and (max-width: 768px) {
+  /* 5 columns for larger screens */
+  .grid-sizer, .grid-item  { width: 49.5%; }
+  .grid-item:hover img {
+    -moz-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+	}
+}
+@media screen and (max-width: 520px) {
+  /* 5 columns for larger screens */
+  .grid-sizer, .grid-item  { width: 99%; }
+  .grid-item:hover img {
+    -moz-transform: scale(1.1, 1.1);
+    -webkit-transform: scale(1.1, 1.1);
+    transform: scale(1.1, 1.1);
+	}
+	.container {
+    margin-left: 15px;
+    margin-right: 15px;
+	}
 }
 
 #canvas {
