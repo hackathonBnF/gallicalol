@@ -21,6 +21,7 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 $app['db'] = new SQLite3(__DIR__."/../db/gallicalol.db");
 
 define('DEFAULT_SEARCH_QUERY', 'barbe');
+define('ITEMS_PER_PAGE', 48);
 
 $app->get('/', function(Request $request) use ($app) {
     $query = $request->query->get('q', DEFAULT_SEARCH_QUERY);
@@ -51,8 +52,21 @@ $app->get('/ark:/{naan}/{name}.meme', function($naan, $name, Request $request) u
 
 $app->get('/memes', function(Request $request) use ($app) {
 
-    $request = $app['db']->prepare( 'SELECT * FROM memes ORDER BY clicked DESC LIMIT 50');
-    $result = $request->execute();
+    $totalItems = 0;
+
+    $stmt = $app['db']->prepare('SELECT COUNT(*) FROM memes');
+    if ($result = $stmt->execute()) {
+        $res = $result->fetchArray(SQLITE3_NUM);
+        $totalItems = $res[0];
+    }
+
+    $page = $request->query->get('p', 1);
+    $pages = (int) ceil($totalItems / ITEMS_PER_PAGE);
+
+    $offset = ITEMS_PER_PAGE * ($page - 1);
+
+    $stmt = $app['db']->prepare("SELECT * FROM memes ORDER BY id DESC LIMIT {$offset}, " . ITEMS_PER_PAGE);
+    $result = $stmt->execute();
 
     $memes = [];
     if ($result) {
@@ -63,6 +77,8 @@ $app->get('/memes', function(Request $request) use ($app) {
 
     return $app['twig']->render('memes.twig', [
         'memes' => $memes,
+        'pages' => $pages,
+        'page' => $page,
     ]);
 });
 
