@@ -1,29 +1,25 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-
-<div class="row">
-
-  <div id="messages">
-    <div id="no-results" class="">
-      <div>Aucune image trouvée</div>
-      <img src="/static/images/search-fail.gif" alt="" loop="1" />
-    </div>
+<div id="messages">
+  <div id="no-results" class="">
+    <div>Aucune image trouvée</div>
+    <img src="/static/images/search-fail.gif" alt="" loop="1" />
   </div>
-
-  <div id="results" class="grid">
-  </div>
-
-  <div id="loading" class="">
-    <img src="/static/images/loading.gif" alt="" />
-  </div>
-
-  <nav class="" id="pagination">
-    <div class="" id="page">1</div>
-    <div class="" id="total"></div>
-    <div class="" id="next"><a href="#">afficher plus d'images</a></div>
-  </nav>
 </div>
+
+<div id="results" class="grid">
+</div>
+
+<div id="loading" class="">
+  <img src="/static/images/loading.gif" alt="" />
+</div>
+
+<nav class="" id="pagination">
+  <div class="" id="page">1</div>
+  <div class="" id="total"></div>
+  <div class="" id="next"><a href="#">afficher plus d'images</a></div>
+</nav>
 {% endblock %}
 
 {% block scripts %}

@@ -2,38 +2,12 @@ body {
 	position: relative;
 }
 
-.container.lol {
-    padding: 10px 0;
-}
-
-.container.lol .navbar, .lol .col-sm-4, .lol .col-sm-8, .lol .col-xs-12 {
-    padding: 0;
-}
-
-.container.lol:first-child, .container.lol:first-child .navbar {
-    padding: 4px 0 0;
-}
-
-#search {
-    padding-bottom: 20px;
-}
-
-
-
 .navbar-brand {
 	font-family: 'Open Sans', sans-serif;
 	/*font-size: 32;*/
 	font-weight: 800;
 	margin-right: 11rem;
 	/*text-transform: uppercase;*/
-}
-
-a.browse {
-    font-size: 13px;
-}
-
-div.nav {
-	line-height: 1rem;
 }
 
 .nav .btn {padding: .32rem .5rem;}

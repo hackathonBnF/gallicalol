@@ -1,21 +1,11 @@
-<div class="container lol">
+<div class="container">
   <nav class="navbar navbar-light">
-      <div class="col-xs-12">
-        <div class="nav navbar-inline float-xs-right">
-          <a class="browse nav-link nav-item btn btn-secondary" href="/memes">
-            liste
-          </a>
-          <a class="browse nav-link nav-item btn btn-secondary" href="/">
-            chercher
-          </a>
-        </div>
-      </div>
-    </nav>
-</div>
-
-<div class="container lol">
-  <nav class="navbar navbar-light">
-      <div class="col-xs-12, col-sm-4"><a class="navbar-brand" href="/">gallica.lol</a></div>
-      <div class="col-xs-12, col-sm-8">{% include "search.twig" %}</div>
+    <a class="navbar-brand" href="/">gallica.lol</a>
+    <div class="nav navbar-nav">
+      <a class="nav-link nav-item" href="/memes">
+        voir tous les mèmes
+      </a>
+    </div>
+    {% include "search.twig" %}
   </nav>
 </div>
