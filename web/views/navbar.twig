@@ -16,6 +16,6 @@
 <div class="container lol">
   <nav class="navbar navbar-light">
       <div class="col-xs-12, col-sm-4"><a class="navbar-brand" href="/">gallica.lol</a></div>
-      <div class="col-xs-12; col-sm-8">{% include "search.twig" %}</div>
+      <div class="col-xs-12; col-sm-8">{% if display_search is defined and display_search %}{% include "search.twig" %} {% endif %}</div>
   </nav>
 </div>
