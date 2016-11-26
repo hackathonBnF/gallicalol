@@ -120,6 +120,10 @@ div.nav {
 	cursor: url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/openhand.cur), default !important;
 }
 
+#canvas img {
+  max-width: 100%; /* This rule is very important, please do not ignore this! */
+}
+
 #messages {
 	padding : 20px 0;
 	text-align: center;
