@@ -11,7 +11,7 @@ body {
 }
 
 .container.lol:first-child, .container.lol:first-child .navbar {
-    padding: 0;
+    padding: 4px 0 0;
 }
 
 #search {
@@ -30,12 +30,14 @@ body {
 
 a.browse {
     font-size: 13px;
-    color: #ddd;
 }
 
 div.nav {
 	line-height: 1rem;
 }
+
+.nav .btn {padding: .32rem .5rem;}
+
 .nav .create { margin-left: 15px; }
 
 .image {
