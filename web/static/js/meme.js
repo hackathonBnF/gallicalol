@@ -128,6 +128,46 @@ $(window).mousemove(function(event) {
   }
 });
 
+$("#twitter-login").click(function(e){
+  e.preventDefault();
+  var $target = $(e.currentTarget);
+
+  var isAuthenticated = $target.data('is-authenticated');
+
+  if (!isAuthenticated) {
+    $.oauthpopup({
+          path: '/twitter/login.php',
+          callback: function () {
+            $('#twitter-modal').modal('show');
+          }
+      });
+  } else {
+    $('#twitter-modal').modal('show');
+  }
+});
+
+// Update image when modal is shown
+$('#twitter-modal').on('shown.bs.modal', function () {
+  $('#twitter-modal-img')
+    .hide()
+    .attr('src', document.getElementById('canvas').toDataURL('image/jpeg'))
+    .show();
+});
+
+$('#post-to-twitter').on('click', function(e) {
+  e.preventDefault();
+
+  var data = {
+    status: $('#tweet-text').val(),
+      image: document.getElementById('canvas').toDataURL('image/jpeg')
+    };
+
+    $.post('/twitter/media_upload.php', data).done(function(data) {
+      $('#twitter-modal').modal('hide');
+    });
+
+});
+
 (function() {
   loadImageIntoCanvas();
 })();
