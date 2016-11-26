@@ -11,3 +11,12 @@
   </div>
 </div>
 {% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script>
+(function() {
+  $("#memes").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
+})();
+</script>
+{% endblock %}

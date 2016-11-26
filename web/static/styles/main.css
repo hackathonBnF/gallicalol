@@ -9,10 +9,6 @@ body {
 	/*text-transform: uppercase;*/
 }
 
-div.nav {
-	line-height: 48px;
-}
-
 .nav .create { margin-left: 15px; }
 
 .image {
