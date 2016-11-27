@@ -26,9 +26,11 @@ body {
 	height: 200px;
 	font-size: 24px;
 }
-.grid-item { margin : 10px; }
+.grid-sizer,
+.grid-item { padding: 5px; width: 20%; }
 .grid-item img {
-	width: 265px;
+    width: 100%;
+    height: auto;
 	-moz-transition: all .2s ease-in-out;
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
@@ -36,11 +38,17 @@ body {
     -webkit-opacity: 0.8;
     opacity: 0.8;
 }
+
+@media screen and (max-width: 768px) {
+    .grid-sizer,
+    .grid-item { padding: 5px; width: 50%; }
+}
+
 .actions { margin-top: 20px; }
 .actions button { width : 100%; margin-bottom : 10px;}
 
 .grid-item:hover {
-	z-index: 1;
+	z-index: 2;
 }
 .grid-item:hover img {
     -moz-transform: scale(1.5, 1.5);

@@ -74,24 +74,31 @@ $("#next a").click(function(e){
 function results_append(results, $target){
 
 	$.each(results, function(idx){
-		result = results[idx];
+		var result = results[idx];
 
-		$content = $('<div class="grid-item"><a href="/'+result["id"]+'.meme"><img src="'+result["thumb"]+"\" /></a></div>");
+		var $content = $('<div class="grid-item"><a href="/'+result["id"]+'.meme"><img src="'+result["thumb"]+"\" /></a></div>");
+		$content.hide();
+
+		// Append to Masonry when image is loaded
+		$content.imagesLoaded().progress(function() {
+			$content.show();
+			$target.masonry('appended', $content);
+		});
 
 		$target
-			.append($content)
-			.masonry('appended', $content);
+			.append($content);
 	});
 
-	$target.imagesLoaded().progress(function(){
-		$target.masonry('layout');
-	});
 }
 
 $(document).ready(function(){
 
 if ($('#results').length === 1) {
-	$("#results").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
+	$("#results").masonry({
+		itemSelector: '.grid-item',
+		columnWidth: '.grid-sizer',
+		percentPosition: true
+	});
 }
 
 $("#search").submit(function(e){
@@ -100,9 +107,9 @@ $("#search").submit(function(e){
 
 	$("#loading").show();
 	$("#messages").hide();
-	$("#results").empty();
-
-	$("#results").masonry('layout');
+	$("#results")
+		.masonry('remove', $("#results .grid-item"))
+		.masonry('layout');
 
 	e.preventDefault();
 
