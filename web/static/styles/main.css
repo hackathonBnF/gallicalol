@@ -55,8 +55,18 @@ body {
 	border: 1px dashed lightgrey;
 }
 
+/* @link http://stackoverflow.com/questions/31207650/crossbrowser-grab-cursor-moz-webkit */
+#canvas:hover {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
 #canvas.drag {
-	cursor: url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/openhand.cur), default !important;
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }
 
 #messages {
