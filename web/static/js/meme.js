@@ -30,10 +30,11 @@ function loadImageIntoCanvas() {
     x = canvas.width / 2 - img.width / 2;
     y = canvas.height / 2 - img.height / 2;
 
-    imageWidth=img.width;
-    //console.log(imageWidth);
+    // Always fit width
+    var ratio = canvas.width / img.width;
 
-    ctx.drawImage(img, x, y);
+    scale(ratio);
+    $scale.val(ratio);
     refreshDownloadLink();
   };
 
@@ -63,16 +64,18 @@ function writeTexts() {
   writeText($textTwo.val(), canvas.width / 2, canvas.height - 20);
 }
 
-function renderMeme() {
+function scale(ratio) {
   ctx.save();
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  var val = $scale.val();
-  ctx.scale(val, val)
+  ctx.translate(canvas.width/2, canvas.height/2);
+  ctx.scale(ratio, ratio);
+  ctx.translate(-canvas.width/2, -canvas.height/2);
   ctx.drawImage(img, x+moveXAmount, y+moveYAmount);
   ctx.restore();
+}
 
+function renderMeme() {
+  scale($scale.val());
   writeTexts();
   refreshDownloadLink();
 }

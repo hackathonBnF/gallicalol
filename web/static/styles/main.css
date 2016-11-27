@@ -96,3 +96,7 @@ body {
 #footer a:hover {
 	color: #474747;
 }
+
+#scale {
+    width: 50%;
+}
