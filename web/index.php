@@ -94,7 +94,9 @@ $app->get('/memes/{id}', function($id, Request $request) use ($app) {
     preg_match($pattern, $gallica_url, $ark, PREG_OFFSET_CAPTURE);
 
     $context  = stream_context_create(array('http' => array('header' => 'Accept: application/xml')));
-    $url_query = 'http://gallica.bnf.fr/services/OAIRecord?ark=' . urlencode( $ark[1][0] );
+
+    $url_query = 'http://gallica.bnf.fr/services/OAIRecord?ark=' . urlencode( str_replace(".meme", "", $ark[1][0]) );
+
     $xml = file_get_contents($url_query , false, $context);
     $xml = simplexml_load_string($xml);
 
