@@ -22,6 +22,12 @@ var prevY = 0;
 var moveXAmount = 0;
 var moveYAmount = 0;
 
+/* test touch events*/
+var mousePos = { x:0, y:0 };
+var lastPos = mousePos;
+
+
+
 function loadImageIntoCanvas() {
 
   imageURL = '/proxy.php?url=' + encodeURIComponent($sourceImage.attr('src'));
@@ -98,7 +104,7 @@ $scale.on('input', renderMeme);
 
 $textOne.on('keyup', renderMeme);
 $textTwo.on('keyup', renderMeme);
-
+/*
 $(canvas).mousedown(function(){
   drag = true;
 
@@ -107,8 +113,28 @@ $(canvas).mousedown(function(){
 
   $(canvas).addClass("drag");
 });
+*/
+canvas.addEventListener("mousedown", function (e) {
+  drag = true;
+  prevX=0;
+  prevY=0;
+  lastPos = getMousePos(canvas, e);
+  $(canvas).addClass("drag");
+}, false);
 
-$(canvas).mouseup(function(){
+canvas.addEventListener("touchstart", function (e) {
+  drag = true;
+  mousePos = getTouchPos(canvas, e);
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousedown", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  $(canvas).addClass("drag");
+  //$(canvas).dispatchEvent(mouseEvent);
+}, false);
+
+canvas.addEventListener("mouseup", function (e) {
   drag = false;
 
   prevX=0;
@@ -117,10 +143,20 @@ $(canvas).mouseup(function(){
   $(canvas).removeClass("drag");
 });
 
+canvas.addEventListener("touchend", function (e) {
+  drag = false;
+
+  prevX=0;
+  prevY=0;
+  $(canvas).removeClass("drag");
+  //var mouseEvent = new MouseEvent("mouseup", {});
+  //$(canvas).dispatchEvent(mouseEvent);
+}, false);
+
 $(window).mousemove(function(event) {
   if(drag){
 
-      if( prevX>0 || prevY>0){
+      if(prevX>0 || prevY>0){
         moveXAmount += event.pageX - prevX;
         moveYAmount += event.pageY - prevY;
         renderMeme();
@@ -131,6 +167,103 @@ $(window).mousemove(function(event) {
   }
 });
 
+window.addEventListener("touchmove", function (e) {
+  if(drag){
+
+      if(prevX>0 || prevY>0){
+        moveXAmount += e.pageX - prevX;
+        moveYAmount += e.pageY - prevY;
+        renderMeme();
+      }
+
+      prevX = e.pageX;
+      prevY = e.pageY;
+      console.log(prevX);
+
+      var touch = e.touches[0];
+      var mouseEvent = new MouseEvent("mousemove", {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+  }
+});
+/*
+canvas.addEventListener("touchmove", function (e) {
+    if(drag){
+    console.log(prevX);
+    if( prevX>0 || prevY>0){
+      console.log("yes");
+      moveXAmount += e.pageX - prevX;
+      moveYAmount += e.pageY - prevY;
+      renderMeme();
+    }
+
+    prevX = e.pageX;
+    prevY = e.pageY;
+  }
+
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousemove", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+
+  //$(canvas).dispatchEvent(mouseEvent);
+}, false);
+*/
+// Get the position of the mouse relative to the canvas
+function getMousePos(canvasDom, mouseEvent) {
+  var rect = canvasDom.getBoundingClientRect();
+  return {
+    x: mouseEvent.clientX - rect.left,
+    y: mouseEvent.clientY - rect.top
+  };
+}
+
+// Get the position of a touch relative to the canvas
+function getTouchPos(canvasDom, touchEvent) {
+  var rect = canvasDom.getBoundingClientRect();
+  return {
+    x: touchEvent.touches[0].clientX - rect.left,
+    y: touchEvent.touches[0].clientY - rect.top
+  };
+}
+
+// Set up touch events for mobile, etc
+/*
+canvas.addEventListener("touchend", function (e) {
+  var mouseEvent = new MouseEvent("mouseup", {});
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+canvas.addEventListener("touchmove", function (e) {
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousemove", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+*/
+
+// Prevent scrolling when touching the canvas
+
+document.body.addEventListener("touchstart", function (e) {
+  if (e.target == canvas) {
+    e.preventDefault();
+  }
+}, false);
+/*
+document.body.addEventListener("touchend", function (e) {
+  if (e.target == canvas) {
+    e.preventDefault();
+  }
+}, false);
+document.body.addEventListener("touchmove", function (e) {
+  if (e.target == canvas) {
+    e.preventDefault();
+  }
+}, false);
+*/
 (function() {
   loadImageIntoCanvas();
 })();

@@ -2,6 +2,11 @@ body {
 	position: relative;
 }
 
+#canvas.drag {
+	border:2px solid red;
+
+}
+
 .navbar-brand {
 	font-family: 'Open Sans', sans-serif;
 	/*font-size: 32;*/
