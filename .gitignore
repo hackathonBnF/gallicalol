@@ -94,5 +94,8 @@ ENV/
 /db/*
 !db/.gitkeep
 
+/web/images/*
+web/images/.gitkeep
+
 /gallica.lol/
 /cache/

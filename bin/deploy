@@ -13,7 +13,7 @@ sh ./bin/mount
 
 echo "Updating files using rsync..."
 rsync --stats -t -P --recursive vendor/ $VENDOR/
-rsync --stats -t -P --recursive web/ $WWW/
+rsync --stats -t -P --recursive --exclude 'images/' web/ $WWW/
 
 echo ""
 echo "--------------------"
