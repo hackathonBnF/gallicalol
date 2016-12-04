@@ -1,0 +1,38 @@
+#!/usr/bin/env php
+<?php
+
+include __DIR__.'/../web/includes/functions.php';
+
+function exit_usage() {
+    echo "Usage: bin/images_to_fs <db_path> <images_dir>\n";
+    echo "- db_path: path to SQLite3 db file.\n";
+    echo "- images_dir: directory which contains images.\n";
+    exit(1);
+}
+
+if (!isset($argv[1]) || !isset($argv[2])) {
+    return exit_usage();
+}
+
+$db_path = $argv[1];
+$images_dir = $argv[2];
+
+if (!file_exists($db_path) || !is_dir($images_dir)) {
+    return exit_usage();
+}
+
+$db = new SQLite3($db_path);
+
+$stmt = $db->prepare('SELECT * FROM memes');
+$result = $stmt->execute();
+
+while ($meme = $result->fetchArray(SQLITE3_ASSOC)) {
+    $path = int_to_filepath($meme['id']);
+    $filename = realpath($images_dir).'/'.$path.'/'.$meme['id'].'.jpg';
+    if (!is_dir(dirname($filename))) {
+        mkdir(dirname($filename), 0755, true);
+    }
+    file_put_contents($filename, base64_to_bin($meme['image']));
+    echo "Saved image {$filename}\n";
+}
+
