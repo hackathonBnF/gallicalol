@@ -50,6 +50,23 @@ $app->get('/ark:/{naan}/{name}.meme', function($naan, $name, Request $request) u
 ->assert('naan', '\d+')
 ->assert('name', '[a-z0-9]+');
 
+$app->post('/save', function(Request $request) use ($app) {
+
+    $stmt = $app['db']->prepare('INSERT INTO memes (gallica_url, top_text, bottom_text, image, scale) VALUES (:url, :top, :bottom, :image, :scale);');
+
+    $stmt->bindValue(':url', $request->request->get('query'));
+    $stmt->bindValue(':top', $request->request->get('top_text'));
+    $stmt->bindValue(':bottom', $request->request->get('bottom_text'));
+    $stmt->bindValue(':image', $request->request->get('download_hidden'));
+    $stmt->bindValue(':scale', $request->request->get('scale'));
+
+    $result = $stmt->execute();
+
+    $meme_id = $app['db']->lastInsertRowID();
+
+    return $app->redirect("/memes/{$meme_id}");
+});
+
 $app->get('/memes', function(Request $request) use ($app) {
 
     $totalItems = 0;
