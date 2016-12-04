@@ -7,7 +7,11 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+require_once __DIR__.'/includes/functions.php';
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 $app = new Silex\Application();
 
@@ -37,14 +41,8 @@ $app->get('/ark:/{naan}/{name}.meme', function($naan, $name, Request $request) u
 
     $query = 'http://gallica.bnf.fr'.$identifier.'/f1.highres';
 
-    $access_token = $app['session']->get('access_token');
-    $access_token_secret = $app['session']->get('access_token_secret');
-
-    $is_authenticated = !empty($access_token) && !empty($access_token_secret);
-
     return $app['twig']->render('create.twig', [
         'query' => $query,
-        'is_authenticated' => $is_authenticated,
     ]);
 })
 ->assert('naan', '\d+')
@@ -101,9 +99,9 @@ $app->get('/memes', function(Request $request) use ($app) {
 
 $app->get('/memes/{id}', function($id, Request $request) use ($app) {
 
-    $request = $app['db']->prepare('SELECT * FROM memes WHERE id = :id');
-    $request->bindValue(':id', $id);
-    $result = $request->execute();
+    $stmt = $app['db']->prepare('SELECT * FROM memes WHERE id = :id');
+    $stmt->bindValue(':id', $id);
+    $result = $stmt->execute();
     $meme = $result->fetchArray();
 
     $gallica_url = $meme['gallica_url'];
@@ -126,10 +124,38 @@ $app->get('/memes/{id}', function($id, Request $request) use ($app) {
         'date' => $date[0],
     ];
 
+    $access_token = $app['session']->get('access_token');
+    $access_token_secret = $app['session']->get('access_token_secret');
+
+    $is_authenticated = !empty($access_token) && !empty($access_token_secret);
+
     return $app['twig']->render('meme.twig', [
         'meme' => $meme,
         'source' => $source,
+        'is_authenticated' => $is_authenticated,
     ]);
+});
+
+// @link http://symfony.com/doc/current/components/http_foundation.html#serving-files
+$app->get('/memes/{id}/download', function($id, Request $request) use ($app) {
+
+    $stmt = $app['db']->prepare('SELECT * FROM memes WHERE id = :id');
+    $stmt->bindValue(':id', $id);
+    $result = $stmt->execute();
+    $meme = $result->fetchArray();
+
+    $data = base64_to_bin($meme['image']);
+
+    $response = new Response($data);
+
+    $disposition = $response->headers->makeDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        'gallica.jpg'
+    );
+
+    $response->headers->set('Content-Disposition', $disposition);
+
+    return $response;
 });
 
 $app->run();

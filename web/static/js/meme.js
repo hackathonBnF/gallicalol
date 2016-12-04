@@ -4,7 +4,6 @@ var ctx = canvas.getContext("2d");
 var $scale = $('#scale');
 var $textOne = $('#text-1');
 var $textTwo = $('#text-2');
-var $download = $('#download');
 var $download_hidden = $('#download_hidden');
 var $sourceImage = $('#source-image');
 
@@ -83,18 +82,10 @@ function renderMeme() {
 function refreshDownloadLink() {
   var dataURL = canvas.toDataURL('image/jpeg');
   dataURL = dataURL.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-  $download.attr('href', dataURL);
   $download_hidden.attr('value', dataURL);
 }
 
 $scale.on('input', renderMeme);
-
-// $download.on('click', function(e) {
-//   e.preventDefault();
-//   var dataURL = canvas.toDataURL('image/jpeg');
-//   dataURL = dataURL.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-//   window.open(dataURL);
-// });
 
 $textOne.on('keyup', renderMeme);
 $textTwo.on('keyup', renderMeme);

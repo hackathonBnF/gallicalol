@@ -23,54 +23,16 @@
       <textarea class="form-control" id="text-2" name="bottom_text"></textarea>
 
       <div class="actions">
-
         <button type="submit" class="btn btn-block btn-success" id="save" ><i class="fa fa-save" aria-hidden="true"></i> Sauver</button>
-
-        <a class="btn btn-block btn-success" id="download" href="#" download="gallica.jpg">
-          <i class="fa fa-download" aria-hidden="true"></i> Télécharger
-        </a>
-        <hr>
-        <button class="btn btn-info" id="twitter-login"
-          data-is-authenticated="{{ is_authenticated ? 'true' : 'false' }}">
-          <i class="fa fa-twitter" aria-hidden="true"></i> Partager sur twitter
-        </button>
-
       </div>
 
     </div>
 
   </div> <!-- big row -->
 </form>
-
-<!-- Modal to post on Twitter -->
-<div id="twitter-modal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Partager sur Twitter</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Texte du tweet :</label>
-            <textarea class="form-control" id="tweet-text"></textarea>
-          </div>
-        </form>
-        <img id="twitter-modal-img" class="img-fluid" src="" style="display: none;">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" id="post-to-twitter">Tweeter</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 {% endblock %}
 
 {% block scripts %}
   {{ parent() }}
-  <script src="/static/js/jquery.oauthpopup.js"></script>
   <script src="/static/js/meme.js"></script>
 {% endblock %}

@@ -2,13 +2,51 @@
 
 {% block content %}
 <div class="row">
-  <div class="image col-lg-12">
+  <div class="image col-md-8 offset-md-2">
     <div>
-      <img alt="Meme n° {{ meme.id }}" src="{{ meme.image }}" />
+      <img alt="Meme n° {{ meme.id }}" src="{{ meme.image }}" class="img-fluid" />
+      <p>
+        <a href="{{ source.url }}" target="_blank">{{ source.title }} ({{ source.date }})</a><br />
+      </p>
     </div>
     <div>
-      <a href="{{ source.url }}" target="_blank">{{ source.title }} ({{ source.date }})</a><br />
+      <a class="btn btn-success" href="/memes/{{ meme.id }}/download">
+        <i class="fa fa-download" aria-hidden="true"></i> Télécharger
+      </a>
+      <button class="btn btn-info" id="twitter-login" data-is-authenticated="{{ is_authenticated ? 'true' : 'false' }}">
+        <i class="fa fa-twitter" aria-hidden="true"></i> Partager sur twitter
+      </button>
     </div>
   </div>
 </div>
+
+<!-- Modal to post on Twitter -->
+<div id="twitter-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Partager sur Twitter</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Texte du tweet :</label>
+            <textarea class="form-control" id="tweet-text"></textarea>
+          </div>
+        </form>
+        <img id="twitter-modal-img" class="img-fluid" src="" style="display: none;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="post-to-twitter">Tweeter</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ parent() }}
+  <script src="/static/js/jquery.oauthpopup.js"></script>
 {% endblock %}
