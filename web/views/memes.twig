@@ -3,22 +3,15 @@
 {% block content %}
 {% include "pagination.twig" %}
 <div class="row">
-  <div>
-    <div id="memes" class="grid">
-      {% for meme in memes %}
-      <div class="grid-item"><a href="/memes/{{ meme.id }}"><img src="{{ meme.image }}" /></a></div>
-      {% endfor %}
-    </div>
+  {% for meme in memes %}
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <p>
+      <a href="/memes/{{ meme.id }}">
+        <img class="img-fluid img-thumbnail" src="{{ meme.image }}" />
+      </a>
+    <p>
   </div>
+  {% endfor %}
 </div>
 {% include "pagination.twig" %}
-{% endblock %}
-
-{% block scripts %}
-{{ parent() }}
-<script>
-(function() {
-  $("#memes").masonry({ itemSelector: '.grid-item', columnWidth: 285 });
-})();
-</script>
 {% endblock %}
