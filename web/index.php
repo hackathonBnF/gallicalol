@@ -25,7 +25,7 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 $app['db'] = new SQLite3(__DIR__."/../db/gallicalol.db");
 
 define('DEFAULT_SEARCH_QUERY', 'barbe');
-define('ITEMS_PER_PAGE', 48);
+define('ITEMS_PER_PAGE', 16);
 
 $app->get('/', function(Request $request) use ($app) {
     $query = $request->query->get('q', DEFAULT_SEARCH_QUERY);
