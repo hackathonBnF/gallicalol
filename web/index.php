@@ -26,6 +26,7 @@ $app['db'] = new SQLite3(__DIR__."/../db/gallicalol.db");
 
 define('DEFAULT_SEARCH_QUERY', 'barbe');
 define('ITEMS_PER_PAGE', 16);
+define('IMAGE_DIR', realpath(__DIR__.'/images'));
 
 $app->get('/', function(Request $request) use ($app) {
     $query = $request->query->get('q', DEFAULT_SEARCH_QUERY);
@@ -62,6 +63,14 @@ $app->post('/save', function(Request $request) use ($app) {
 
     $meme_id = $app['db']->lastInsertRowID();
 
+    // Save image to filesystem
+    $path = meme_image_path($meme_id);
+    $filename = IMAGE_DIR.'/'.$path;
+    if (!is_dir(dirname($filename))) {
+        mkdir(dirname($filename), 0755, true);
+    }
+    file_put_contents($filename, base64_to_bin($request->request->get('download_hidden')));
+
     return $app->redirect("/memes/{$meme_id}");
 });
 
@@ -86,6 +95,7 @@ $app->get('/memes', function(Request $request) use ($app) {
     $memes = [];
     if ($result) {
         while ($meme = $result->fetchArray()) {
+            $meme['image_url'] = meme_image_uri($meme['id']);
             $memes[] = $meme;
         }
     }
@@ -103,6 +113,7 @@ $app->get('/memes/{id}', function($id, Request $request) use ($app) {
     $stmt->bindValue(':id', $id);
     $result = $stmt->execute();
     $meme = $result->fetchArray();
+    $meme['image_url'] = meme_image_uri($meme['id']);
 
     $gallica_url = $meme['gallica_url'];
     $pattern = '/(ark.*)\/f1.highres/';

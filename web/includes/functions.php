@@ -19,3 +19,13 @@ function int_to_filepath($id) {
 
     return implode('/', $parts);
 }
+
+function meme_image_uri($meme_id) {
+    return '/images/'.meme_image_path($meme_id);
+}
+
+function meme_image_path($meme_id) {
+    $path = int_to_filepath($meme_id);
+
+    return "{$path}/{$meme_id}.jpg";
+}
