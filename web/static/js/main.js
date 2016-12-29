@@ -1,3 +1,24 @@
+/* @link http://stackoverflow.com/questions/6150289/how-to-convert-image-into-base64-string-using-javascript */
+function toDataURL(src, outputFormat, callback) {
+  var img = new Image();
+  img.crossOrigin = 'Anonymous';
+  img.onload = function() {
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = this.height;
+    canvas.width = this.width;
+    ctx.drawImage(this, 0, 0);
+    dataURL = canvas.toDataURL(outputFormat);
+    callback(dataURL);
+  };
+  img.src = src;
+  if (img.complete || img.complete === undefined) {
+    img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+    img.src = src;
+  }
+}
+
 $("#twitter-login").click(function(e){
 	e.preventDefault();
 	var $target = $(e.currentTarget);
@@ -20,22 +41,23 @@ $("#twitter-login").click(function(e){
 $('#twitter-modal').on('shown.bs.modal', function () {
 	$('#twitter-modal-img')
 		.hide()
-		.attr('src', document.getElementById('canvas').toDataURL('image/jpeg'))
+		.attr('src', $('#meme-image').attr('src'))
 		.show();
 });
 
 $('#post-to-twitter').on('click', function(e) {
 	e.preventDefault();
 
-	var data = {
-		status: $('#tweet-text').val(),
-    	image: document.getElementById('canvas').toDataURL('image/jpeg')
-    };
+	toDataURL($('#meme-image').attr('src'), 'image/jpeg', function(base64) {
+		var data = {
+			status: $('#tweet-text').val(),
+			image: base64
+		};
 
-    $.post('/twitter/media_upload.php', data).done(function(data) {
-    	$('#twitter-modal').modal('hide');
-    });
-
+		$.post('/twitter/media_upload.php', data).done(function(data) {
+			$('#twitter-modal').modal('hide');
+		});
+	});
 })
 
 function next(){
