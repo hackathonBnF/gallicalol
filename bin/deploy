@@ -1,22 +1,3 @@
 #!/usr/bin/env bash
 
-VHOST="gallicalol.11d.im"
-WWW="gallica.lol/vhosts/$VHOST/htdocs"
-VENDOR="gallica.lol/vhosts/$VHOST/vendor"
-
-echo "---------------------------"
-echo "- Deploying to production -"
-echo "---------------------------"
-echo ""
-
-sh ./bin/mount
-
-echo "Updating files using rsync..."
-rsync --stats -t -P --recursive vendor/ $VENDOR/
-rsync --stats -t -P --recursive --exclude 'images/' web/ $WWW/
-
-echo ""
-echo "--------------------"
-echo "-     DEPLOYED     -"
-echo "--------------------"
-echo ""
+cap production deploy --trace
