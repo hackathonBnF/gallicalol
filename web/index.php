@@ -65,12 +65,13 @@ $app->get('/proxy/ark:/{naan}/{name}/lowres', function($naan, $name, Request $re
 
     $raw = curl_exec($ch);
 
-    curl_close ($ch);
+    $response = Response::create($raw, 200, [
+        'Content-Type' => 'image/jpeg'
+    ]);
 
-    header('Content-Type: image/jpeg');
-    echo $raw;
+    $response->setSharedMaxAge(60 * 60 * 24 * 30);
 
-    exit;
+    return $response;
 })
 ->assert('naan', '\d+')
 ->assert('name', '[a-z0-9]+');
