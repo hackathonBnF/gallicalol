@@ -53,6 +53,28 @@ $app->get('/ark:/{naan}/{name}.meme', function($naan, $name, Request $request) u
 ->assert('naan', '\d+')
 ->assert('name', '[a-z0-9]+');
 
+$app->get('/proxy/ark:/{naan}/{name}/lowres', function($naan, $name, Request $request) use ($app) {
+
+    $url = 'http://gallica.bnf.fr' . str_replace('/proxy', '', $request->getPathInfo());
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'GallicaLOL');
+
+    $raw = curl_exec($ch);
+
+    curl_close ($ch);
+
+    header('Content-Type: image/jpeg');
+    echo $raw;
+
+    exit;
+})
+->assert('naan', '\d+')
+->assert('name', '[a-z0-9]+');
+
 $app->post('/save', function(Request $request) use ($app) {
 
     $stmt = $app['db']->prepare('INSERT INTO memes (gallica_url, top_text, bottom_text, image, scale) VALUES (:url, :top, :bottom, :image, :scale);');

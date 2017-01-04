@@ -47,8 +47,8 @@ if (!$response = $cache->fetch($cacheKey)) {
 
             $r = [
               "id" => $ark_id,
-              "thumb" => $identifier."/lowres",
-              "img" => $identifier."/f1.highres"
+              "thumb" => str_replace('http://gallica.bnf.fr', '/proxy', $identifier."/lowres"),
+              "img" => str_replace('http://gallica.bnf.fr', '/proxy', $identifier."/f1.highres")
             ];
 
             array_push($results, $r);
