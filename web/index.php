@@ -69,6 +69,10 @@ $app->get('/proxy/ark:/{naan}/{name}/lowres', function($naan, $name, Request $re
         'Content-Type' => 'image/jpeg',
     ]);
 
+    // @link https://coderwall.com/p/rl6v7a/http-caching-in-symfony2-max-age-etag-gzip
+    $etagWithoutGzip = str_replace('-gzip"', '"', $request->headers->get('If-None-Match'));
+    $request->headers->set('If-None-Match', $etagWithoutGzip);
+
     $response->setETag(md5($raw));
     $response->setPublic(); // make sure the response is public/cacheable
     $response->isNotModified($request);
