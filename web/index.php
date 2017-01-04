@@ -67,20 +67,27 @@ $app->get('/proxy/ark:/{naan}/{name}/lowres', function($naan, $name, Request $re
     curl_setopt($ch, CURLOPT_USERAGENT, 'GallicaLOL');
 
     $raw = curl_exec($ch);
-
     $image = $app['image_manager']->make($raw);
 
     $image->resize($image->getWidth() * 0.6, $image->getHeight() * 0.6);
+    $data = $image->encode('jpg');
 
-    $response = Response::create($image->encode('jpg'), 200, [
+    $headers = [
         'Content-Type' => 'image/jpeg',
-    ]);
+    ];
+    if (false !== strpos($request->headers->get('Accept-Encoding'), 'gzip')) {
+        $data = gzencode($data);
+        $headers['Content-Encoding'] = 'gzip';
+        $headers['Vary'] = 'Accept-Encoding';
+    }
+
+    $response = Response::create($data, 200, $headers);
 
     // @link https://coderwall.com/p/rl6v7a/http-caching-in-symfony2-max-age-etag-gzip
     $etagWithoutGzip = str_replace('-gzip"', '"', $request->headers->get('If-None-Match'));
     $request->headers->set('If-None-Match', $etagWithoutGzip);
 
-    $response->setETag(md5($raw));
+    $response->setETag(md5($data));
     $response->setPublic(); // make sure the response is public/cacheable
     $response->setSharedMaxAge(60 * 60 * 24 * 30);
     $response->isNotModified($request);
