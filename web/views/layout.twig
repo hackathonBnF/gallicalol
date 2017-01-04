@@ -24,6 +24,7 @@
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.1.0/jquery.infinitescroll.min.js"></script>
     <script src="/static/js/main.js"></script>
+    {% if piwik_tracker is defined and piwik_tracker %}
     <!-- Piwik -->
     <script type="text/javascript">
       var _paq = _paq || [];
@@ -39,6 +40,7 @@
       })();
     </script>
     <!-- End Piwik Code -->
+    {% endif %}
     {% endblock %}
   </body>
 </html>

@@ -28,6 +28,10 @@ define('DEFAULT_SEARCH_QUERY', 'barbe');
 define('ITEMS_PER_PAGE', 16);
 define('IMAGE_DIR', realpath(__DIR__.'/images'));
 
+// Do not activate Piwik in dev
+$piwik_tracker = (0 !== strpos($_SERVER['HTTP_HOST'], 'localhost'));
+$app['twig']->addGlobal('piwik_tracker', $piwik_tracker);
+
 $app->get('/', function(Request $request) use ($app) {
     $query = $request->query->get('q', DEFAULT_SEARCH_QUERY);
 
