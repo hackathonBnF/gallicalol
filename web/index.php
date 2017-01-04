@@ -66,10 +66,12 @@ $app->get('/proxy/ark:/{naan}/{name}/lowres', function($naan, $name, Request $re
     $raw = curl_exec($ch);
 
     $response = Response::create($raw, 200, [
-        'Content-Type' => 'image/jpeg'
+        'Content-Type' => 'image/jpeg',
     ]);
 
-    $response->setSharedMaxAge(60 * 60 * 24 * 30);
+    $response->setETag(md5($raw));
+    $response->setPublic(); // make sure the response is public/cacheable
+    $response->isNotModified($request);
 
     return $response;
 })
