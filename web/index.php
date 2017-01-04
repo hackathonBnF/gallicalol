@@ -12,6 +12,7 @@ require_once __DIR__.'/includes/functions.php';
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Intervention\Image\ImageManager;
 
 $app = new Silex\Application();
 
@@ -31,6 +32,8 @@ define('IMAGE_DIR', realpath(__DIR__.'/images'));
 // Do not activate Piwik in dev
 $piwik_tracker = (0 !== strpos($_SERVER['HTTP_HOST'], 'localhost'));
 $app['twig']->addGlobal('piwik_tracker', $piwik_tracker);
+
+$app['image_manager'] = new ImageManager(array('driver' => 'imagick'));
 
 $app->get('/', function(Request $request) use ($app) {
     $query = $request->query->get('q', DEFAULT_SEARCH_QUERY);
@@ -65,7 +68,11 @@ $app->get('/proxy/ark:/{naan}/{name}/lowres', function($naan, $name, Request $re
 
     $raw = curl_exec($ch);
 
-    $response = Response::create($raw, 200, [
+    $image = $app['image_manager']->make($raw);
+
+    $image->resize($image->getWidth() * 0.6, $image->getHeight() * 0.6);
+
+    $response = Response::create($image->encode('jpg'), 200, [
         'Content-Type' => 'image/jpeg',
     ]);
 

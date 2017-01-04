@@ -30,6 +30,7 @@
         "vlucas/phpdotenv": "*",
         "silex/silex": "~2.0",
         "twig/twig": "^1.28",
-        "doctrine/cache": "^1.6"
+        "doctrine/cache": "^1.6",
+        "intervention/image": "^2.3"
     }
 }
