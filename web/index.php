@@ -75,6 +75,7 @@ $app->get('/proxy/ark:/{naan}/{name}/lowres', function($naan, $name, Request $re
 
     $response->setETag(md5($raw));
     $response->setPublic(); // make sure the response is public/cacheable
+    $response->setSharedMaxAge(60 * 60 * 24 * 30);
     $response->isNotModified($request);
 
     return $response;
