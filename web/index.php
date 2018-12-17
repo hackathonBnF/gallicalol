@@ -47,7 +47,7 @@ $app->get('/ark:/{naan}/{name}.meme', function($naan, $name, Request $request) u
 
     $identifier = $request->getPathInfo();
 
-    $query = 'http://gallica.bnf.fr'.$identifier.'/f1.highres';
+    $query = 'https://gallica.bnf.fr'.$identifier.'/f1.highres';
 
     return $app['twig']->render('create.twig', [
         'query' => $query,
